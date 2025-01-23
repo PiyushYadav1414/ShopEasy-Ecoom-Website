@@ -27,3 +27,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
     font-style: normal;
   }
   
+
+  body {
+    transform: scale(0.85);
+    transform-origin: top left;
+  }
+  
