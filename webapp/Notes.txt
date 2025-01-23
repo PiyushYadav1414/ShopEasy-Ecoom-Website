@@ -1,0 +1,106 @@
+### What Does "Creating an API" Mean?
+
+When we say **"creating an API"**, it means setting up a way for different applications to interact. For example:
+- A web application that needs to access a database of users and return that information to a client app (like a mobile app).
+- A service that provides stock market data to other apps.
+
+### Example of Creating an API:
+
+1. **A GET API (used to retrieve data):**  
+   - **URL:** `https://api.weather.com/getWeather`  
+   - **Function:** When you make a request to this URL (e.g., `https://api.weather.com/getWeather?city=London`), it returns weather information about London.
+
+2. **A POST API (used to send data):**  
+   - **URL:** `https://api.example.com/user/register`  
+   - **Function:** You send user details (like name, email, and password) to the server. The server processes this data and registers the user.
+
+
+Here’s a simplified explanation of how your e-commerce website works with an example:
+
+---
+
+### **1. User Visits Home Page**
+- **Initial Check (AuthGuard):**  
+  When a user tries to access the HomeComponent, an **AuthGuard** first checks if the user is logged in.  
+  - The **AuthGuard** calls a method `isLogin()` in the **AuthService**, which returns `true` (logged in) or `false` (not logged in).
+  - If the user is **not logged in**, they are redirected to the login page.
+
+---
+
+### **2. New User Registration**
+- **Registration Process:**  
+  If the user is new, they register using the **RegisterComponent**, which sends their name, username, and password to the backend (`auth.js`) to be saved in the database.  
+  Example:  
+  A user enters their details:  
+  - Name: John  
+  - Username: john123  
+  - Password: password123  
+  The backend saves this data securely (e.g., the password is hashed).  
+  Once registered, the user is redirected to the login page.
+
+---
+
+### **3. User Login**
+- **Login Validation:**  
+  When the user logs in:  
+  - The frontend sends the username and password to the backend (`auth-handler.js`).
+  - The backend checks if the username exists and compares the entered password with the stored hashed password.  
+    If they match, the backend creates a **token** containing user details (e.g., userId, name, email, isAdmin).  
+  - The token and user details are sent back to the frontend, where the token is stored in the browser's local storage.  
+
+  Example:  
+  John logs in with:  
+  - Username: john123  
+  - Password: password123  
+  If valid, the backend sends a token like:  
+  `{ userId: 1, name: 'John', email: 'john123@example.com', isAdmin: false }`.
+
+---
+
+### **4. Returning to Home Page**
+- **Token Verification:**  
+  - Now, when the user tries to access the HomeComponent again, the **AuthGuard** checks the token stored in the browser using `isLogin()`.  
+  - If the token is valid, the HomeComponent is displayed.  
+
+- **HomeComponent Content:**  
+  The HomeComponent shows:  
+  - A slider/banner  
+  - Featured products  
+  - New products  
+  These product details are fetched from the backend using methods like `addProduct`, `getProducts`, etc., via specific routes (e.g., `/product`).  
+
+---
+
+### **5. Search or Category Filter**
+- **Searching/Filtering Products:**  
+  If the user searches for a product or selects a category:  
+  - The app redirects to the ProductListComponent.  
+  - A query like `?search=shoes` or `?categoryId=1` is sent to like /product?search=shoes route and ProductList component is loaded and it retrieved teh categoryId or searchTerm from url using req.query and send it to the backend to get product.  
+  - The backend retrieves the relevant products and sends them back to the frontend.
+
+---
+
+### **6. Token and Data Validation**
+- **Token and Admin Validation:**  
+  For any backend request (e.g., fetching products, adding a product):  
+  - A **Token-HTTP-Interceptor** automatically attaches the token to the request header.  
+  - The backend verifies the token using `verifyToken` and checks if the user has admin rights using `isAdmin` in app.js.  
+
+  If valid, the request is processed, and the backend responds based on the request data (e.g., saving, fetching, or deleting data).  
+
+  Example:  
+  John searches for "shoes":  
+  - The app sends `?search=shoes` to `/product` with the token.  
+  - The backend verifies the token and retrieves matching products from the database.  
+
+---
+
+### Summary:
+- Users can't access HomeComponent without logging in.  
+- New users can register, and their data is securely stored.  
+- Logged-in users get a token for accessing protected routes.  
+- The token ensures secure communication with the backend for all requests (e.g., fetching, updating, or deleting products).  
+
+Example Flow:  
+1. John registers -> Logs in -> Gets redirected to the HomeComponent.  
+2. John sees products -> Searches for "shoes" -> Gets the filtered product list.

@@ -1,0 +1,107 @@
+
+
+
+
+.product-card {
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.1);
+  }
+
+
+  .seventh {
+    padding-top: 4px;
+}
+
+
+/* Styling for Discounted Price */
+.text-green-700 {
+  color: #16a34a; /* Darker green for discounted price */
+}
+
+.font-extrabold {
+  font-weight: 800; /* Make it bold */
+}
+
+.text-3xl {
+  font-size: 2rem; /* Larger font size for discounted price */
+}
+
+/* Styling for Original Price */
+.text-sm {
+  font-size: 0.875rem; /* Smaller font size for original price */
+}
+
+/* Styling for Discount Percentage */
+.text-green-500 {
+  color: #10b981; /* Green color for discount percentage */
+}
+
+/* Ensure original price is crossed out */
+.line-through {
+  text-decoration: line-through;
+}
+
+/* You can adjust the font weight and size for better look */
+.text-gray-400 {
+  color: #9ca3af; /* Light gray color for original price */
+}
+
+.seventh{
+  padding-top: 4px;
+}
+
+
+
+
+
+
+/* Button Position and Styling */
+.relative {
+  position: relative;
+}
+
+button.absolute {
+  background: none; /* Remove background */
+  border: none; /* Remove border */
+  cursor: pointer;
+  z-index: 10;
+  padding: 0; /* Remove padding to prevent white circle background */
+}
+
+button.absolute:hover {
+  transform: scale(1.1); /* Slightly enlarge the icon on hover */
+}
+
+/* Heart Icon States */
+.empty-heart path {
+  fill: none; /* Empty heart outline */
+  stroke: rgb(34, 32, 32); /* Red border */
+  stroke-width: 2;
+}
+
+.filled-heart path {
+  fill: #ef4444; /* Fill the inside of the heart with red */
+  stroke: none;
+}
+
+/* Smooth transitions */
+.filled-heart path,
+.empty-heart path {
+  transition: fill 0.3s ease-in-out, stroke 0.3s ease-in-out;
+}
+
+
+
+
+
+

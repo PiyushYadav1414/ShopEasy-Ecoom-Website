@@ -1,0 +1,113 @@
+.first{
+    font-weight: bold;
+    font-family: serif;
+    font-size: 40px;
+    padding-left: 10px;
+}
+.first:hover{
+    font-size: 50px;
+}
+
+
+
+/* Sidebar Styles */
+aside {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  /* Section Titles */
+  aside h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333333;
+  }
+  
+  aside h3 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #555555;
+    margin-bottom: 12px;
+  }
+  
+  /* Category List */
+  aside ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  aside li {
+    font-size: 1rem;
+    padding: 8px 0;
+    transition: color 0.3s ease;
+    cursor: pointer;
+  }
+  
+  /* Brand Checkboxes */
+  .brand-checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; /* Space between checkboxes */
+  }
+  
+  .brand-checkbox {
+    flex: 1 1 calc(33.33% - 16px); /* Three checkboxes per row */
+    display: flex;
+    align-items: center;
+  }
+  
+  
+  /* Sort Dropdown */
+  select {
+    font-size: 1rem;
+    color: #555555;
+    border: 1px solid #dddddd;
+    padding: 8px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    appearance: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0px 0px 4px rgba(0, 123, 255, 0.5);
+  }
+  
+  /* Button Styles */
+  button {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+
+  @media (max-width: 768px) {
+    .brand-checkbox {
+      flex: 1 1 calc(50% - 16px); /* Two checkboxes per row on small screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .brand-checkbox {
+      flex: 1 1 100%; /* One checkbox per row on very small screens */
+    }
+  }
+
+  .selected {
+    font-weight: bold;
+    color: blue;
+}
+
+.third{
+    text-align: center;
+}
+ 
+.last{
+    width:100%;
+}
+
+  

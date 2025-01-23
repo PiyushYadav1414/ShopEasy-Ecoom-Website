@@ -1,0 +1,119 @@
+<!-- <div [routerLink]="['/product', product._id]">
+    <img [src]="product.images" [alt]="product.name" class="w-full h-56 object-cover">
+    <div class="p-6 bg-white">
+      <h4 class="text-xl font-semibold text-gray-800 mb-2">{{ product.name }}</h4>
+      <p class="text-sm text-gray-600 mb-3">{{ product.shortDescription }}</p>
+  
+      <div class="flex justify-between items-center">
+        <p class="text-xl font-semibold text-red-600">{{ product.price | currency }}</p>
+        <button  class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+</div>
+ -->
+
+
+
+
+<!-- <div [routerLink]="['/product', product._id]">
+  <img [src]="product.images" [alt]="product.name" class="w-full h-56 object-cover">
+  <div class="p-6 bg-white">
+    <h4 class="text-xl font-semibold text-gray-800 mb-2">{{ product.name }}</h4>
+    <p class="text-sm text-gray-600 mb-3">{{ product.shortDescription }}</p>
+
+    <div class="flex justify-between items-center">
+      <div class="flex gap-2 mt-6 mb-4">
+        
+        <span class="text-black font-extrabold text-xl">${{ sellingPrice }}</span>
+      
+        <span class="text-gray-400 line-through text-sm seventh">${{ product.price }}</span>
+        
+        <span class="text-red-600 text-sm seventh">-{{ product.discount }}% OFF</span>
+
+    </div>
+      <button  class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all">
+        Add to Cart
+      </button>
+    </div>
+  </div>
+</div> -->
+
+
+<!-- <div class="relative">
+  <img [src]="product.images" [alt]="product.name" class="w-full h-56 object-cover">
+  <button 
+    (click)="addToWishList(product)" 
+    [ngClass]="{'text-red-500': isInWishlist(product), 'text-gray-500': !isInWishlist(product)}"
+    class="absolute top-2 right-2 text-3xl hover:scale-110 transition-transform"
+    aria-label="Add to Wishlist">
+    <i class="fas fa-heart"></i>
+  </button>
+  <div class="p-6 bg-white">
+    <h4 class="text-xl font-semibold text-gray-800 mb-2">{{ product.name }}</h4>
+    <p class="text-sm text-gray-600 mb-3">{{ product.shortDescription }}</p>
+
+    <div class="flex justify-between items-center">
+      <div class="flex gap-2 mt-6 mb-4">
+        <span class="text-black font-extrabold text-xl">${{ sellingPrice }}</span>
+        <span class="text-gray-400 line-through text-sm seventh">${{ product.price }}</span>
+        <span class="text-red-600 text-sm seventh">-{{ product.discount }}% OFF</span>
+      </div>
+      <button class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all">
+        Add to Cart
+      </button>
+    </div>
+  </div>
+</div> -->
+
+
+<div class="relative">
+  <img [src]="product.images" [alt]="product.name" class="w-full h-56 object-cover"
+    [routerLink]="['/product', product._id]">
+
+  <!-- Heart Icon -->
+  <button (click)="addToWishList(product)" class="absolute top-2 right-2 hover:scale-110 transition-transform"
+    aria-label="Add to Wishlist">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-10 w-10"
+      [ngClass]="{'filled-heart': isInWishlist(product), 'empty-heart': !isInWishlist(product)}">
+      <title>Like</title>
+      <path
+        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z">
+      </path>
+    </svg>
+  </button>
+
+  <!-- Product Details -->
+  <div class="p-6 bg-white" [routerLink]="['/product', product._id]">
+    <h4 class="text-xl font-semibold text-gray-800 mb-2">{{ product.name }}</h4>
+    <p class="text-sm text-gray-600 mb-3">{{ product.shortDescription }}</p>
+
+    <div class="flex justify-between items-center">
+      <div class="flex gap-2 mt-6 mb-4">
+        <span class="text-black font-extrabold text-xl">${{ sellingPrice }}</span>
+        <span class="text-gray-400 line-through text-sm seventh">${{ product.price }}</span>
+        <span class="text-red-600 text-sm seventh">-{{ product.discount }}% OFF</span>
+      </div>
+      <!-- <button class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all" (click)="addToCart(product)">
+        Add to Cart
+      </button>   -->
+      <!-- Add to Cart Button -->
+      <button *ngIf="!isProductInCart(product._id!)"
+        class="px-6 py-2 rounded-lg transition-all bg-blue-500 text-white hover:bg-blue-700"
+        (click)="addToCart(product); $event.stopPropagation()">
+        Add to Cart
+      </button>
+
+
+      <button *ngIf="isProductInCart(product._id!)"
+        class="px-4 py-2 ml-6 rounded-lg transition-all bg-red-500 text-white hover:bg-red-700 whitespace-nowrap"
+        (click)="addToCart(product); $event.stopPropagation()">
+        Remove from Cart
+      </button>
+
+
+
+    </div>
+  </div>
+</div>

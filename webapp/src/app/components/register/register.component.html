@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@angular/material@14.2.5/prebuilt-themes/indigo-pink.css">
+    <style>
+        /* Adding a smooth background animation to make it more dynamic */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .animated-gradient {
+            background: linear-gradient(to right, #6ee7b7, #3b82f6, #9333ea, #f43f5e);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        .first {
+            height: 52px;
+        }
+    </style>
+</head>
+<body class="animated-gradient min-h-screen flex items-center justify-center">
+
+    <!-- Registration Card -->
+    <div class="bg-white p-12 rounded-3xl shadow-xl max-w-md w-full">
+
+        <!-- Logo -->
+        <div class="text-center mb-2 ml-9">
+            <img src="https://shopeasyy.vercel.app/apple-touch-icon.png" alt="Website Logo" class="h-24 w-24 ml-20 ">
+        </div>
+
+        <!-- Form Title -->
+        <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6">Register Your Account</h2>
+
+        <!-- Registration Form -->
+        <form [formGroup]="registerForm" >
+            <!-- Name Field -->
+            <mat-form-field class="w-full mb-6">
+                <mat-label for="name">Name</mat-label>
+                <input matInput type="text" id="name" formControlName="name" required placeholder="Your name" />
+            </mat-form-field>
+
+            <!-- Email Field -->
+            <mat-form-field class="w-full mb-6">
+                <mat-label for="email">Email Address</mat-label>
+                <input matInput type="email" id="email" formControlName="email" required placeholder="Your email" />
+            </mat-form-field>
+
+            <!-- Password Field -->
+            <mat-form-field class="w-full mb-6">
+                <mat-label for="password">Password</mat-label>
+                <input matInput type="password" id="password" formControlName="password" required placeholder="Your password" />
+            </mat-form-field>
+
+            <!-- Submit Button -->
+            <button mat-raised-button color="primary" type="submit" (click)="register()" [disabled]="registerForm.invalid" class="first w-full py-3 px-6 rounded-xl shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300">
+                Register
+            </button>
+
+            <!-- Sign In Link -->
+            <div class="text-center mt-6">
+                <p class="text-sm text-gray-600">Already have an account?</p>
+                <a routerLink="/login" class="text-sm font-medium text-indigo-600 hover:text-indigo-700 transition duration-300">Log in here</a>
+            </div>
+            
+        </form>
+    </div>
+ 
+</body>
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,130 @@
+<header class="site-header h-[187px]">
+  <div class="top-bar">
+    <div class="logo cursor-pointer flex items-center gap-2" routerLink="/">
+      <div class="flex flex-row justify-center items-center gap-1">
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+          class="lucide lucide-shopping-cart">
+          <circle cx="8" cy="21" r="1"></circle>
+          <circle cx="19" cy="21" r="1"></circle>
+          <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+        </svg>
+        <span class="text-red-500 hover:text-gray-300">ShopEasy</span>
+      </div>
+    </div>
+    <div class="search-bar text-center">
+      <input class="w-[680px] h-[45px] rounded-lg pl-4" [(ngModel)]="searchTerm" placeholder="Search...."
+        (keyup.enter)="onSearch($event)">
+      <button type="submit"><i class="fas fa-search"></i></button>
+    </div>
+    <div class="profile pt-5">
+      <!-- Show admin link if the user is admin -->
+      <ng-container *ngIf="authService.isLoggedIn">
+        <ng-container *ngIf="authService.isAdmin; else nonAdmin">
+          <a routerLink="/admin" class="cursor-pointer ml-2">{{ authService.userName }}</a>
+        </ng-container>
+
+        <!-- For non-admin users -->
+        <ng-template #nonAdmin>
+          <a routerLink="/profile" class="cursor-pointer ml-2">{{ authService.userName }}</a>
+        </ng-template>
+
+
+
+        <!-- Show logout button if the user is logged in -->
+        <a (click)="logout()" class="cursor-pointer ml-2">Logout</a>
+      </ng-container>
+
+
+      <!-- Show login and register links if the user is not logged in -->
+      <ng-container *ngIf="!authService.isLoggedIn">
+        <a routerLink="/login" class="cursor-pointer ml-2">Log In</a>
+        <a routerLink="/register" class="cursor-pointer ml-2">Register</a>
+      </ng-container>
+    </div>
+
+
+  </div>
+
+
+
+  <ng-container *ngIf="authService.isLoggedIn">
+    <nav class="category-menu">
+      <div class="ninth flex items-center gap-4"> <!-- Flexbox container -->
+        <ul class="cursor-pointer space-x-40">
+          <!-- Loop through categories -->
+          <li *ngFor="let category of categoryList" (click)="searchCategory(category._id!)">
+            <a>{{ category.name }}</a>
+          </li>
+        </ul>
+        <div *ngIf="!authService.isAdmin; else notAdmin">
+          <!-- Order Status Link -->
+          <a class="order-status flex flex-col items-center gap-2 hover:text-gray-300"
+            href="/en/check-order-status.html" target="_self" aria-label="Order Status" data-link-value="Order Status"
+            data-feature-type="Order Status" dap-wac-link="true" dap-wac-loc="top-nav" dap-wac-value="Order Status"
+            [routerLink]="['/orders']">
+            <div class="">
+              <img src="https://img.icons8.com/?size=100&id=M8hYYbcIeS4f&format=png&color=FFFFFF"
+                alt="Order Status Icon" class="h-6 w-6 text-white img2">
+              <span class="id5">Order Status</span>
+            </div>
+          </a>
+
+
+
+
+
+          <!-- Heart Icon -->
+          <a class="heart-icon">
+            <button class="tenth hover:scale-110 transition-transform" aria-label="Toggle Wishlist"
+              (click)="toggleWishlist()">
+              <div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-10 w-10"
+                  [ngClass]="isWishlist ? 'filled-heart' : 'empty-heart'">
+                  <title>Wish List</title>
+                  <path
+                    d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z">
+                  </path>
+                </svg>
+                <span class="id6">Favourite</span>
+              </div>
+            </button>
+
+          </a>
+
+          <!-- Cart Icon -->
+          <a class="cart-icon" href="/viewcart?exploreMode=true&amp;preference=FLIPKART" [routerLink]="['/cart']">
+            <div class="eleventh ">
+              <svg class="GAbRIN h-10 w-10" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <path class="cziJ98"
+                  d="M15.32 2.405H4.887C3 2.405 2.46.805 2.46.805L2.257.21C2.208.085 2.083 0 1.946 0H.336C.1 0-.064.24.024.46l.644 1.945L3.11 9.767c.047.137.175.23.32.23h8.418l-.493 1.958H3.768l.002.003c-.017 0-.033-.003-.05-.003-1.06 0-1.92.86-1.92 1.92s.86 1.92 1.92 1.92c.99 0 1.805-.75 1.91-1.712l5.55.076c.12.922.91 1.636 1.867 1.636 1.04 0 1.885-.844 1.885-1.885 0-.866-.584-1.593-1.38-1.814l2.423-8.832c.12-.433-.206-.86-.655-.86"
+                  fill="#fff">
+                </path>
+              </svg>
+              <span class="twelvth">Cart</span>
+            </div>
+          </a>
+        </div>
+
+        <ng-template #notAdmin>
+           <!-- Order Status Link -->
+           <a class="order-status flex flex-col items-center gap-2 hover:text-gray-300"
+           href="/en/check-order-status.html" target="_self" aria-label="Order Status" data-link-value="Order Status"
+           data-feature-type="Order Status" dap-wac-link="true" dap-wac-loc="top-nav" dap-wac-value="Order Status"
+           [routerLink]="['/admin/orders']">
+           <div class="">
+             <img src="https://img.icons8.com/?size=100&id=M8hYYbcIeS4f&format=png&color=FFFFFF"
+               alt="Order Status Icon" class="h-6 w-6 text-white img2">
+             <span class="id5">Order Status</span>
+           </div>
+         </a>
+        </ng-template>
+
+
+      </div>
+    </nav>
+  </ng-container>
+
+
+
+</header>

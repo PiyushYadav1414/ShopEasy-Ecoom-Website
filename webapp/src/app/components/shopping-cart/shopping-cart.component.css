@@ -1,0 +1,294 @@
+.line-through {
+    text-decoration: line-through;
+}
+
+.seventh {
+    padding-top: 4px;
+}
+
+.first {
+    font-weight: bold;
+    font-family: serif;
+    font-size: 40px;
+    padding-left: 10px;
+    padding-top: 8px;
+}
+
+.first:hover {
+    font-size: 50px;
+}
+
+.id1 {
+    padding: 35px 0px;
+}
+
+.id2 {
+    font-size: 17px;
+}
+
+.id3 {
+    display: flex;
+    padding-top: 2px;
+    padding-left: 37px;
+    position: relative;
+    bottom: 10px;
+    font-weight: bold;
+}
+
+.id4 {
+    margin: 0 0 10px 178px;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #333;
+
+}
+
+
+
+.container1 {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section h2 {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.section h2 img {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: #fdfdfd;
+}
+
+.feature svg {
+    margin-right: 8px;
+    fill: #0a8800;
+}
+
+.link {
+    margin-top: 10px;
+    text-decoration: none;
+    color: #0073e6;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.link svg {
+    margin-left: 5px;
+    fill: #0073e6;
+}
+
+.icons img {
+    height: 32px;
+    margin-right: 10px;
+}
+
+
+.payment-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+    margin: 25px auto;
+    font-family: Arial, sans-serif;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid #ccc;
+    padding: 13px 10px 13px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.payment-option:hover {
+    background-color: #f9f9f9;
+}
+
+.payment-option img {
+    width: 90px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.payment-option input {
+    margin-right: 10px;
+}
+
+.payment-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.payment-label {
+    display: flex;
+}
+
+.payment-text {
+    position: relative;
+    top: 2px;
+    left: 21px;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+
+
+  
+
+.payment-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.payment-icon {
+    width: 24px;
+    /* Adjust icon size */
+    height: 24px;
+    margin-right: 10px;
+}
+
+/* .payment-text {
+    font-size: 16px;
+} */
+
+
+.card1 {
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    padding: 80px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.id5 {
+    position: relative;
+    bottom: 19px;
+    font-weight: bold;
+    font-size: 30px;
+    right: 8px;
+}
+
+
+.payment-images {
+    display: flex;
+    gap: 10px;
+    /* Space between images */
+    margin-left: 36px;
+    margin-top: 4px;
+}
+
+.payment-images .payment-image {
+    width: 30px !important;
+    /* Force 30px size */
+    height: 30px !important;
+    /* Force 30px size */
+    object-fit: contain;
+    /* Keep the object-fit */
+    border-radius: 5px;
+    /* Optional: for rounded images */
+
+
+    
+}
+
+
+.id8{
+    position: relative;
+    right: 150px;
+    top: 87px;
+    background: transparent;
+}
+
+.id9{
+    position: relative;
+    bottom:800px;
+}
+
+
+.animated-circle {
+    animation: moveOut 2s ease-in-out infinite;
+}
+
+@keyframes moveOut1 {
+    0% {
+        transform: translate(0, -10px); /* Start from a slightly higher position */
+        opacity: 1;
+    }
+    100% {
+        transform: translate(0, -30px); /* Move up */
+        opacity: 0;
+    }
+}
+
+@keyframes moveOut2 {
+    0% {
+        transform: translate(0, -10px); /* Start from a slightly higher position */
+        opacity: 1;
+    }
+    100% {
+        transform: translate(20px, -50px); /* Moves right and up */
+        opacity: 0;
+    }
+}
+
+@keyframes moveOut3 {
+    0% {
+        transform: translate(0, -10px); /* Start from a slightly higher position */
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-20px, -40px); /* Moves left and up */
+        opacity: 0;
+    }
+}
+
+.animated-circle {
+    animation-duration: 2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite; /* Or change to '1' for one-time animation */
+}
+
+.circle1 {
+    animation-name: moveOut1;
+}
+
+.circle2 {
+    animation-name: moveOut2;
+}
+
+.circle3 {
+    animation-name: moveOut3;
+}

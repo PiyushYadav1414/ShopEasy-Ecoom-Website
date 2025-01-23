@@ -1,0 +1,70 @@
+.first{
+    font-weight: bold;
+    font-family: serif;
+    font-size: 40px;
+    padding-left: 10px;
+}
+.first:hover{
+    font-size: 50px;
+}
+
+
+
+  
+  /* Button Styles */
+  button {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+
+  @media (max-width: 768px) {
+    .brand-checkbox {
+      flex: 1 1 calc(50% - 16px); /* Two checkboxes per row on small screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .brand-checkbox {
+      flex: 1 1 100%; /* One checkbox per row on very small screens */
+    }
+  }
+
+  .selected {
+    font-weight: bold;
+    color: blue;
+}
+
+.third{
+    text-align: center;
+}
+ 
+  
+
+  
+
+.relative {
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    display: flex;
+    flex-direction: column;
+}
+
+.relative img {
+    flex: 1; /* Allow the image to take as much vertical space as possible */
+    object-fit: cover; /* Cover the entire width and height of the image */
+}
+
+.p-6 {
+    flex-shrink: 0; /* Ensure details don't shrink */
+    padding: 16px; /* Consistent padding */
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: auto; /* Allow details section to adjust dynamically */
+}
+
+.flex {
+    align-items: center; /* Center align the price and button */
+    justify-content: space-between;
+}

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@angular/material@14.2.5/prebuilt-themes/indigo-pink.css">
+    <style>
+        
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .animated-gradient {
+            background: linear-gradient(to right, #6ee7b7, #3b82f6, #9333ea, #f43f5e);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        .first {
+            height: 52px;
+        }
+    </style>
+</head>
+<body class="animated-gradient min-h-screen flex items-center justify-center">
+
+
+    <div class="bg-white p-12 rounded-3xl shadow-xl max-w-md w-full">
+
+     
+        <div class="text-center mb-2 ml-9">
+            <img src="https://shopeasyy.vercel.app/apple-touch-icon.png" alt="Website Logo" class="h-24 w-24 ml-20 ">
+        </div>
+
+ 
+        <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6">Login to Your Account</h2>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            
+            <mat-form-field class="w-full mb-6">
+                <mat-label for="email">Email Address</mat-label>
+                <input matInput type="email" id="email" formControlName="email" required placeholder="Your email" />
+            </mat-form-field>
+
+            
+            <mat-form-field class="w-full mb-6">
+                <mat-label for="password">Password</mat-label>
+                <input matInput type="password" id="password" formControlName="password" required placeholder="Your password" />
+            </mat-form-field>
+
+        
+            <button mat-raised-button (click)="login()" [disabled]="loginForm.invalid"  color="primary" type="submit" class="first w-full py-3 px-6 rounded-xl shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-300">
+                Log In
+            </button>
+
+            <div class="text-center mt-4">
+                <a href="/forgot-password" class="text-sm text-indigo-600 hover:text-indigo-700 transition duration-300">Forgot your password?</a>
+            </div>
+        </form>
+
+        
+        <div class="text-center mt-6">
+            <p class="text-sm text-gray-600">Don't have an account?</p>
+            <a routerLink="/register" class="text-sm font-medium text-indigo-600 hover:text-indigo-700 transition duration-300">Sign up here</a>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!-- px-40 => it adds 40 unit padding in x axis Horizontal axis (left and right).
+mt-10 => it means add a top margin equal to 10 units.  -->
+<div class="flex flex-col items-center px-40 mt-10">
+  
+    <!-- Show Update Brand if isEdit is true, else show Add New Brand -->
+    <h1 *ngIf="isEdit; else addBrand">Update Brand</h1>
+    <ng-template #addBrand>
+      <h1>Add New Brand</h1>
+    </ng-template>
+  
+    <form action="" class="shadow-sm w-96 p-4">
+      <div class="flex flex-wrap">
+        <div class="w-full gap-4">
+          <mat-form-field class="w-full"> 
+            <mat-label>Name</mat-label>
+            <input matInput type="text" [(ngModel)]="name" name="name"/> 
+          </mat-form-field>
+        </div>
+      </div>
+  
+      <div class="w-full flex justify-center">
+        <!-- Button text and method change based on isEdit -->
+        <button mat-raised-button color="primary" [disabled]="!name" (click)="isEdit ? update() : add()">
+          {{ isEdit ? 'Update' : 'Add' }}  <!-- Dynamic button text -->
+        </button>
+      </div>
+    </form>
+  </div>

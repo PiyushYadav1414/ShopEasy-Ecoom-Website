@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+
+ @tailwind base;
+ @tailwind components;
+ @tailwind utilities;
+
+/* Charm font family definitions */
+.charm-regular {
+    font-family: "Charm", serif;
+    font-weight: 400;  /* Regular weight */
+    font-style: normal;
+  }
+  
+  .charm-bold {
+    font-family: "Charm", serif;
+    font-weight: 700;  /* Bold weight */
+    font-style: normal;
+  }
+  
+  /* Moon Dance font family definition */
+  .moon-dance-regular {
+    font-family: "Moon Dance", serif;
+    font-weight: 400;  /* Regular weight */
+    font-style: normal;
+  }
+  

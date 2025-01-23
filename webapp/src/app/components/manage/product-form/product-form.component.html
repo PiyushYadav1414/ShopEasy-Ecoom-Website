@@ -1,0 +1,130 @@
+<div class="flex flex-col items-center px-40 mt-10">
+    <!-- Conditional header based on isEdit flag -->
+    <h1 *ngIf="isEdit; else addProductHeader">Update Product</h1>
+    <ng-template #addProductHeader>
+      <h1>Add New Product</h1>
+    </ng-template>
+
+    <!-- Form with dynamic submit function based on isEdit -->
+    <form class="shadow p-4" [formGroup]="productForm" (ngSubmit)="isEdit ? updateProduct() : addProduct()">
+      <div class="flex flex-wrap">
+
+        <mat-form-field class="w-full">
+            <mat-label>Category</mat-label>
+            <mat-select formControlName="categoryId">
+              <mat-option *ngFor="let category of categories" [value]="category._id">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          
+          <mat-form-field class="w-full">
+            <mat-label>Brand</mat-label>
+            <mat-select formControlName="brandId">
+              <mat-option *ngFor="let brand of brands" [value]="brand._id">
+                {{brand.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          
+          
+          
+        <!-- Name input field -->
+        <mat-form-field class="w-full">
+          <mat-label>Name</mat-label>
+          <!-- Connects the input field name to a specific field in the FormGroup and with the help of this we can apply validation and can control it. -->
+          <input matInput type="text" formControlName="name" />
+        </mat-form-field>
+  
+        <!-- Short Description input field -->
+        <mat-form-field class="w-full gap-4">
+          <mat-label>Short Description</mat-label>
+          <input matInput type="text" formControlName="shortDescription" />
+        </mat-form-field>
+  
+        <!-- Description input field -->
+        <mat-form-field class="w-full">
+          <mat-label>Description</mat-label>
+          <textarea matInput rows="5" formControlName="description"></textarea>
+        </mat-form-field>
+  
+        <!-- Price input field -->
+        <mat-form-field class="w-full">
+          <mat-label>Price</mat-label>
+          <input matInput type="number" formControlName="price" />
+        </mat-form-field>
+  
+        <!-- Discount input field -->
+        <mat-form-field class="w-full">
+          <mat-label>Discount</mat-label>
+          <input matInput type="number" formControlName="discount" />
+        </mat-form-field>
+  
+
+        <div class="w-full flex gap-8">
+            <mat-checkbox formControlName="isFeatured">Is Featured</mat-checkbox>
+            <mat-checkbox formControlName="isNewProduct">Is New</mat-checkbox>
+          </div>
+          
+  
+        <!-- Dynamic Image fields -->
+        <!-- formArrayName connects this section of the form to the images array in the form (productForm). -->
+        <div class="w-full flex flex-col" formArrayName="images">
+          <div class="flex justify-between">
+            <h4>Images</h4>
+            <button mat-raised-button color="primary" type="button" (click)="addImage()">Add Image</button>
+            <button mat-raised-button color="warn" type="button" (click)="removeImage()">Remove Image</button>
+          </div>
+
+          <!-- let index = index: This assigns the index of the current control to the variable index. The index is automatically provided by Angular and starts at 0 for the first item in the array. -->
+          <!-- ngFor directive automatically provides local variables for each item in the loop:
+          item: Represents the current element in the array (images.controls in your case).
+          index: Represents the index (or position) of the current element in the array. -->
+
+          <!-- When the project first runs, ngOnInit by default gives one control to the image array, and we are iterating over that control to create as many input fields as there are controls in image.controls and bind each input field to its corresponding control with the help of index -->
+          <div *ngFor="let item of images.controls; let index = index">
+            <!-- item will be the first form control (new FormControl(null, [Validators.required])).For the second iteration: item will be the second form control, and so on. -->
+            <mat-form-field class="w-full">
+              <mat-label>Image {{ index + 1 }}</mat-label>
+              <!-- You're looping over images.controls to create an <input> field for each image URL in the images array. -->
+              <input matInput type="text" [formControlName]="index" />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Submit Button with dynamic text -->
+      <div class="flex justify-center">
+        <button mat-raised-button color="primary" [disabled]="!productForm.valid">
+          {{ isEdit ? 'Update' : 'Add' }}
+        </button>
+      </div>
+    </form>
+  </div>
+  
+  <!-- This represents the values in the form, such as the actual input values (e.g., URLs or paths for images).
+  images = [
+  "https://example.com/image1.jpg",
+  "https://example.com/image2.jpg",
+  "https://example.com/image3.jpg"
+];
+This represents the form controls that are created dynamically for each image. These controls hold the validation logic and track the status of each form field.
+images.controls = [
+  new FormControl(null, [Validators.required]),
+  new FormControl(null, [Validators.required]),
+  new FormControl(null, [Validators.required])
+];
+
+images: An array of form values (e.g., image URLs entered by the user).
+images.controls: An array of form controls (which hold validation and status, e.g., Validators.required). -->
+
+<!-- images => iske pass array of images hoti hai matlab unki value ki [image 1 , image2, image3]
+images.controls => .control method hai jo unki value is bind kiye gye controls ki array de deta hai
+images.controls = [
+new FormControl(null, [Validators.required]),
+new FormControl(null, [Validators.required]),
+new FormControl(null, [Validators.required])
+]; -->
+
+<!-- sbse pehle jab run hua project tb ngOnIt ne by default ek control de diya image ki array ko and hum uss control o iterate kr rhe hai ki jiten bhi control hai image.control mein unti input field bna do and each input field ko unke corresponding control se bind kr do with the help of index  -->

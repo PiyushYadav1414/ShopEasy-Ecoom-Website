@@ -1,0 +1,67 @@
+<div class="min-h-screen bg-gray-100">
+    <nav class="bg-white shadow-lg">
+        <div class="container mx-auto py-2">
+            <h2 class="text-center first">{{ categoryName }}</h2>
+        </div>
+    </nav>
+
+    <div class=" px-4 py-6 flex last">
+        <!-- Sidebar Section for Filters -->
+        <aside class="w-1/4 bg-white p-4 rounded-lg shadow-lg">
+            <h2 class="text-lg font-semibold mb-4">Filters</h2>
+            <hr>
+            <!-- Categories Filter -->
+            <div class="mb-2">
+                <h3 class="text-md font-medium mb-4">Categories</h3>
+                <ul class="space-y-2">
+                    <li *ngFor="let category of categories" class="cursor-pointer hover:text-blue-600 transition" (click)="onCategorySelect(category._id)">
+                        <span [class.selected]="category._id === categoryId">{{ category.name }}</span>
+                    </li>
+                </ul>
+            </div>
+            <hr>
+
+            <!-- Brand Filter -->
+            <div class="mt-6 mb-2">
+                <h3 class="text-md font-medium mb-4">Brand</h3>
+                <div class="brand-checkbox-container">
+                    <mat-checkbox *ngFor="let brand of brands" class="brand-checkbox" [checked]="brand.selected"
+                        (change)="onBrandSelect(brand)">
+                        {{ brand.name }}
+                    </mat-checkbox>
+                </div>
+            </div>
+            <hr>
+            <!-- Sort By Filter -->
+            <div class="mt-6">
+                <h3 class="text-md font-medium mb-4">Sort By</h3>
+                <select [(ngModel)]="sort" (change)="getProducts()" class="w-full border rounded-lg px-4 py-2">
+                    <option [value]="''">Default (High to Low)</option>
+                    <option [value]="'price'">Price (Low to High)</option>
+                    <option [value]="'nameAsc'">(A-Z)</option>
+                    <option [value]="'nameDesc'">(Z-A)</option>
+                </select>
+            </div>
+        </aside>
+
+        <!-- Main Section for Products -->
+        <main class="flex-1 ml-6">
+            <!-- No Products Found Message -->
+            <div *ngIf="products.length === 0" class="flex flex-col items-center justify-center h-screen text-center space-y-4 mt-[-100px]">
+                <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/error-no-search-results_2353c5.png" alt="No results found" class="w-96 h-96 object-contain mx-auto pl-2" />
+                <div class="text-4xl font-semibold text-gray-800">Sorry, no results found!</div>
+                <div class="text-xl text-gray-600">Please check the spelling or try searching for something else</div>
+            </div>
+
+            <!-- Product Grid -->
+            <div *ngIf="products.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
+            </div>
+
+            <!-- <div class="flex flex-wrap gap-x-6 justify-evenly mt-8">
+                <app-product-card *ngFor="let product of products" [product]="product"
+                  class="w-[30%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"></app-product-card>
+              </div> -->
+        </main>
+    </div>
+</div>

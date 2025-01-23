@@ -1,0 +1,246 @@
+/* site-header styles */
+.site-header {
+    background-color: black;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  /* top-bar styles */
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    
+  }
+  
+  /* logo styles */
+  .logo img {
+    height: 50px; /* Adjust as needed */
+    width: 60px;
+   
+  }
+
+  .logo span{
+    color: #ff0000; /* Use your primary color variable here #FF4500 */
+    font-weight: bold;
+    font-family: serif;
+    font-size: 50px;
+  }
+  .logo span:hover{
+    color:#CCCCCC;
+
+  }
+  
+  /* search-bar styles */
+  .search-bar {
+    width: 600px;
+    position: relative;
+
+  }
+  
+  .search-bar input[type="text"] {
+    width: 850px;
+    padding: 5px 30px 5px 10px; /* Adjust for input padding */
+    border-radius: 8px;
+    height: 100px;
+  }
+  
+  .search-bar button {
+    position: absolute;
+    /* right: 0px; */
+    left:643px;
+    top: 13px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* profile styles */
+  .profile a {
+    text-decoration: none;
+    color: #ffffff;; /* Use your primary color variable here */
+    font-weight: bold;
+    font-family: serif;
+    font-size: 30px;
+    padding: 18px;
+  }
+  
+  .profile a:hover {
+    color: #0056b3; /* Example secondary color */
+  }
+  
+  /* category-menu styles */
+  .category-menu {
+    margin-top: 10px;
+    font-family: serif;
+    font-size: 20px;
+    padding: 20px 0px 0px 30px;
+  }
+  
+  .category-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .category-menu li {
+    margin-right: -30px;
+  }
+  
+  .category-menu a {
+    text-decoration: none;
+    color: #ffffff; /* Changed to white */
+    transition: color 0.3s ease;
+  }
+  
+  .category-menu a:hover {
+    /* color: #ffd700;  */
+    color: red;
+    font-size: 30px;
+    font-family:cursive;
+    /* padding:5px;
+    border:1px solid white; */
+  }
+  
+
+
+  /* Logo styles with ShopEasy icon */
+.logo .lucide-shopping-cart {
+  transition: transform 0.3s ease;
+  color: #aa2715; 
+  
+}
+
+.logo:hover .lucide-shopping-cart {
+  transform: scale(1.1);
+  color: #CCCCCC;
+}
+
+.logo span {
+  /* color: #ff4500;  */
+  color: #aa2715; 
+ font-family: "Moon Dance", cursive;
+  font-size: 45px; /* Adjust as needed */
+  font-weight: 700;
+  font-style: normal;
+}
+
+.logo span:hover {
+  color: #CCCCCC; /* Subtle hover effect */
+}
+
+
+.login-register-link {
+  font-size: 30px;
+  padding: 18px;
+  cursor: pointer;
+}
+
+
+/* .heart-icon{
+  width:20px;
+} */
+
+
+
+
+button.absolute {
+  position: absolute; /* Position the button absolutely */
+  right: 0; /* Place it to the right of the h1 tag */
+  background: none; /* Remove background */
+  border: none; /* Remove border */
+  cursor: pointer;
+  z-index: 10;
+  /* padding-right: 490px;  */
+}
+
+
+button.absolute:hover {
+  transform: scale(1.1); 
+}
+
+/* Heart Icon States */
+.empty-heart path {
+  fill: none; /* Empty heart outline */
+  stroke: white; /* Red border */
+  stroke-width: 2;
+}
+
+.filled-heart path {
+  fill: #ef4444; /* Fill the inside of the heart with red */
+  stroke: none;
+}
+
+/* Smooth transitions */
+.filled-heart path,
+.empty-heart path {
+  transition: fill 0.3s ease-in-out, stroke 0.3s ease-in-out;
+}
+
+
+.ninth {
+  position: relative; /* Make the parent container relative */
+  display: flex;
+  top:26px
+}
+
+.tenth{
+  padding:0px 0px 0px 0px;
+  position: absolute;
+  right: 216px;
+  bottom: -24px;
+  
+}
+.eleventh{
+  padding:0px 0px 0px 0px;
+  position: absolute;
+  right: 140px;
+  bottom: -24px;
+  
+}
+.twelvth{
+  font-size:17px;
+  padding: 10px;
+  position: relative;
+  top: 3px;
+  right: 4px;
+}
+/* .thirteenth{
+  padding:0px 0px 0px 0px;
+  position: absolute;
+  right:2px;
+  bottom:4px;
+} */
+
+.order-status{
+  position: absolute;
+  right: -25px;
+  bottom: -32px;
+}
+
+.nl-icon {
+  stroke: currentColor;  /* If stroke color is defined in the SVG */
+  fill: currentColor;  /* This sets the icon's fill color */
+}
+
+.img2{
+  width:60px;
+  height:60px;
+}
+
+
+.id5{
+  font-size:17px;
+  padding: 10px;
+  position: relative;
+  bottom: 5px;
+  right: 15px;
+}
+
+.id6{
+  font-size:17px;
+  padding: 10px;
+  position: relative;
+  bottom: 0px;
+  right: 20px;
+}

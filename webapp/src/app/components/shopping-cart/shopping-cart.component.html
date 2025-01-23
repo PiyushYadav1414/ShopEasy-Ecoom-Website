@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        .card {
+            border: 1px solid #e5e5e5;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .summary-card {
+            background-color: #f8f8f8;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .quantity-button {
+            width: 30px;
+            height: 30px;
+            background-color: #f1f1f1;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .quantity-button:hover {
+            background-color: #ddd;
+        }
+
+        .product-info {
+            font-family: 'Arial', sans-serif;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #4A4A4A;
+            padding-left: 190px;
+            display: inline-block;
+            position: relative;
+            bottom: 22px;
+            right: 23px;
+        }
+
+        .strikethrough {
+            text-decoration: line-through;
+            color: #B0B0B0;
+            margin-left: 10px;
+        }
+
+        .discount-text {
+            color: #FF4B4B;
+            font-size: 0.875rem;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+
+
+    <div *ngIf="orderStep == 0">
+        <nav class="bg-white shadow-lg">
+            <div class="container mx-auto py-2">
+                <h2 class="text-center first">Shopping Cart</h2>
+            </div>
+        </nav>
+
+        <div class="container mx-auto py-12 px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+
+                <!-- Empty Shopping Cart -->
+                <div *ngIf="items.length === 0"
+                    class="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-gray-700 ">
+                    <!-- Shopping Cart Icon -->
+                    <div class="id9">
+                        <div class="flex items-center justify-center w-40 h-40 rounded-full bg-gray-100 id8">
+                            <svg class="cart-svg" width="180" height="185" viewBox="0 0 75 75" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M57.0084 32.9753L56.5124 32.9127L57.0084 32.9753ZM54.3524 54.0241L54.8485 54.0867L54.3524 54.0241ZM24.1769 54.0241L23.6808 54.0867L24.1769 54.0241ZM25.169 55.399H53.3603V54.399H25.169V55.399ZM54.8485 54.0867L57.5045 33.0379L56.5124 32.9127L53.8563 53.9615L54.8485 54.0867ZM56.0163 31.3501H22.513V32.3501H56.0163V31.3501ZM21.0248 33.0379L23.6808 54.0867L24.673 53.9615L22.0169 32.9127L21.0248 33.0379ZM22.513 31.3501C21.61 31.3501 20.9117 32.142 21.0248 33.0379L22.0169 32.9127C21.9792 32.6141 22.212 32.3501 22.513 32.3501V31.3501ZM57.5045 33.0379C57.6176 32.142 56.9193 31.3501 56.0163 31.3501V32.3501C56.3173 32.3501 56.5501 32.6141 56.5124 32.9127L57.5045 33.0379ZM53.3603 55.399C54.1161 55.399 54.7538 54.8366 54.8485 54.0867L53.8563 53.9615C53.8248 54.2115 53.6122 54.399 53.3603 54.399V55.399ZM25.169 54.399C24.9171 54.399 24.7045 54.2115 24.673 53.9615L23.6808 54.0867C23.7754 54.8366 24.4132 55.399 25.169 55.399V54.399Z"
+                                    fill="#666666"></path>
+                                <ellipse cx="26.4998" cy="64.5" rx="1.99994" ry="2" stroke="#666666"></ellipse>
+                                <ellipse cx="51.9998" cy="64.5" rx="1.99994" ry="2" stroke="#666666"></ellipse>
+
+
+                                <!-- Circles representing items coming out of the cart -->
+                                <circle class="animated-circle circle1" cx="39" cy="35" r="4" fill="#ff6347"></circle>
+                                <circle class="animated-circle circle2" cx="46" cy="42" r="4" fill="#32cd32"></circle>
+                                <circle class="animated-circle circle3" cx="51" cy="39" r="4" fill="#1e90ff"></circle>
+
+
+                                <mask id="mask0_87_24990" style="mask-type:alpha;" maskUnits="userSpaceOnUse" x="12"
+                                    y="16" width="20" height="19">
+                                    <rect x="12.8748" y="16.1001" width="18.7228" height="18.7228" fill="#D9D9D9">
+                                    </rect>
+                                </mask>
+                                <g mask="url(#mask0_87_24990)">
+                                    <path
+                                        d="M24.3616 56.1116L24.4159 56.5501H24.8578H58.6119C58.5196 62.7821 56.7036 68.8706 53.3604 74.1385C49.928 79.5472 45.0274 83.8676 39.2311 86.5952C33.4349 89.3227 26.9822 90.3447 20.6268 89.5418C14.2714 88.7389 8.27556 86.1443 3.3397 82.061C-1.59616 77.9777 -5.26831 72.5743 -7.24786 66.4819C-9.2274 60.3895 -9.43261 53.8596 -7.83952 47.6549C-7.66975 46.9937 -7.48552 46.2537 -7.28628 45.4535C-6.53195 42.4237 -5.56255 38.5302 -4.34882 34.7767C-3.58232 32.4063 -2.72255 30.1057 -1.76488 28.1271C-0.844211 26.225 0.151824 24.6529 1.21793 23.6001H19.0074C19.7645 23.6001 20.4029 24.1643 20.496 24.9156L24.3616 56.1116Z"
+                                        stroke="#666666"></path>
+                                </g>
+                            </svg>
+                        </div>
+
+                        <!-- Empty Cart Text -->
+                        <h1 class="mt-6 text-3xl font-bold text-gray-800">Your shopping cart is empty</h1>
+                        <p class="mt-2 text-gray-600">Add your favorite items to get started!</p>
+                        <!-- Button to See Trending Items -->
+                        <button
+                            class="mt-6 px-6 py-3 ml-6 text-white bg-blue-600 hover:bg-blue-700 rounded-lg shadow-md focus:ring-4 focus:ring-blue-300" routerLink="/">
+                            See Trending Items
+                        </button>
+                    </div>
+                </div>
+
+
+
+                <!-- Cart Items Section -->
+                <div class="space-y-8" *ngIf="items.length > 0">
+                    <div class="card " *ngFor="let item of items">
+                        <div class="flex items-center justify-between space-x-4">
+                            <img [src]="item.product.images[0]" alt="Product Image" class="product-image">
+                            <div class="flex-1 product-info">
+                                <h3 class="text-xl font-semibold text-gray-700">{{ item.product.name }}</h3>
+                                <p class="text-sm text-gray-500">{{ item.product.shortDescription }}</p>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="flex items-center border border-gray-300 rounded-lg space-x-2">
+                                    <div (click)="changeQuantity(item.product._id, item.quantity - 1)"
+                                        class="quantity-button" [ngClass]="{'cursor-not-allowed': item.quantity === 1}"
+                                        [attr.disabled]="item.quantity === 1 ? true : null">-</div>
+                                    <input type="number" [(ngModel)]="item.quantity" class="w-12 text-center border-0"
+                                        min="1">
+                                    <div (click)="changeQuantity(item.product._id, item.quantity + 1)"
+                                        class="quantity-button">+</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-price">
+                            <div class="flex gap-2 mb-4">
+                                <span class="text-black font-extrabold text-xl">${{ getSellingPrice(item) }}</span>
+                                <span class="text-gray-400 line-through text-sm seventh">${{ item.product.price}}</span>
+                                <span class="text-red-600 text-sm seventh">-{{ item.product.discount }}% OFF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Summary Section -->
+                <!-- Summary Section -->
+                <div class="summary-card space-y-6 ">
+                    <h2 class="text-3xl font-semibold text-gray-800">Order Summary</h2>
+                    <hr>
+                    <div class="flex justify-between text-gray-700">
+                        <p class="text-lg">Subtotal (1 item)</p>
+                        <p class="text-lg font-semibold">${{ getSubtotal() | number: '1.2-2' }}</p>
+                    </div>
+                    <div class="flex justify-between text-red-600">
+                        <p class="text-lg">Discount</p>
+                        <p class="text-lg font-semibold">-${{ getDiscount() | number: '1.2-2' }}</p>
+                    </div>
+                    <div class="flex justify-between text-gray-700">
+                        <p class="text-lg">Platform Fee</p>
+                        <p class="text-lg font-semibold">${{ isCartEmpty ? 0 : 3 }}</p>
+                    </div>
+                    <div class="flex justify-between text-gray-700">
+                        <p class="text-lg">Delivery Charges</p>
+                        <p class="text-lg font-semibold">${{ isCartEmpty ? 0 : 10 }}</p>
+                    </div>
+                    <hr>
+                    <div class="flex justify-between text-gray-700">
+                        <p class="text-lg font-semibold">Total Amount</p>
+                        <p class="text-xl font-semibold text-green-600">${{ getTotal() | number: '1.2-2' }}</p>
+                    </div>
+                    <hr>
+                    <div class="text-green-600 font-semibold id2">
+                        <p>You will save ${{ getDiscountAmount() | number: '1.2-2' }} on this order</p>
+                    </div>
+                    <button
+                        class="btn w-full py-3 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 focus:outline-none"
+                        (click)="checkout()">Proceed to Checkout</button>
+                    <button
+                        class="btn w-full py-3 bg-gray-300 text-gray-800 text-lg font-semibold rounded-lg hover:bg-gray-400 focus:outline-none mt-4"
+                        routerLink="/products">Continue Shopping</button>
+
+                    <!-- Cashback promotion section -->
+                    <!-- <div class="vq2cZB mt-6">
+                        <div class="id3 ">
+                            <div class="pr-2">
+                                <img src="https://img1a.flixcart.com/www/linchpin/fk-cp-pay/axis-78501b36.svg" class="MFSjTQ h-[35px]" />
+                            </div>
+                            <div class="pr-2 id2">5% Unlimited Cashback on Flipkart Axis Bank Credit Card</div>
+                            <svg width="12" height="12" viewBox="0 0 16 27" xmlns="http://www.w3.org/2000/svg" class="NQ6JrL">
+                                <path d="M16 23.207L6.11 13.161 16 3.093 12.955 0 0 13.161l12.955 13.161z" fill="#000000"></path>
+                            </svg>
+                        </div>
+                    </div> -->
+
+                    <div class="container1">
+                        <h1 class="id4 font-semibold">Cash Back Promotion</h1>
+                        <div class="card">
+                            <div class="vq2cZB mt-6">
+                                <div class="id3 ">
+                                    <div class="pr-2">
+                                        <img src="https://img1a.flixcart.com/www/linchpin/fk-cp-pay/axis-78501b36.svg"
+                                            class="MFSjTQ h-[35px]" />
+                                    </div>
+                                    <div class="pr-2 id2">5% Unlimited Cashback on Flipkart Axis Bank Credit Card</div>
+                                    <svg width="12" height="12" viewBox="0 0 16 27" xmlns="http://www.w3.org/2000/svg"
+                                        class="NQ6JrL">
+                                        <path d="M16 23.207L6.11 13.161 16 3.093 12.955 0 0 13.161l12.955 13.161z"
+                                            fill="#000000"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Delivery Guarantee Section -->
+                        <div class="section mt-8">
+                            <h2>
+                                <img src="https://aimg.kwcdn.com/upload_aimg/temu/663f3efb-82b7-4542-b651-19980f005c53.png.slim.png"
+                                    alt="Delivery Guarantee Icon">
+                                Delivery Guarantee
+                            </h2>
+                            <div class="features">
+                                <div class="feature">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="16"
+                                        height="16">
+                                        <path
+                                            d="M930.4 227.8l-108.2-84.8-409.5 522.4-243.1-188.7-84.3 108.6 351.2 272.7z">
+                                        </path>
+                                    </svg>
+                                    CA$5.00 Credit for delay
+                                </div>
+                                <div class="feature">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="16"
+                                        height="16">
+                                        <path
+                                            d="M930.4 227.8l-108.2-84.8-409.5 522.4-243.1-188.7-84.3 108.6 351.2 272.7z">
+                                        </path>
+                                    </svg>
+                                    Return if item damaged
+                                </div>
+                                <div class="feature">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="16"
+                                        height="16">
+                                        <path
+                                            d="M930.4 227.8l-108.2-84.8-409.5 522.4-243.1-188.7-84.3 108.6 351.2 272.7z">
+                                        </path>
+                                    </svg>
+                                    18-day no update refund
+                                </div>
+                                <div class="feature">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="16"
+                                        height="16">
+                                        <path
+                                            d="M930.4 227.8l-108.2-84.8-409.5 522.4-243.1-188.7-84.3 108.6 351.2 272.7z">
+                                        </path>
+                                    </svg>
+                                    20-day no delivery refund
+                                </div>
+                            </div>
+                            <a href="#" class="link">Learn more
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="16" height="16">
+                                    <path
+                                        d="M320 215.8c-18.2-18.9-17.6-49 1.3-67.2 17-16.4 43.1-17.5 61.5-3.8l5.8 5.1 315.4 328.7c15.7 16.3 17.4 41.1 5.3 59.3l-5.2 6.5-315.5 329.6c-18.2 19-48.3 19.6-67.2 1.5-17.1-16.3-19.3-42.4-6.4-61.2l4.9-6 284-296.6-283.9-295.9z">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+
+                        <!-- Card Security Section -->
+                        <div class="section mt-8">
+                            <h2>
+                                <img src="https://aimg.kwcdn.com/upload_aimg/temu/044bc6f4-c0d3-4d82-aa12-ca1ea0089ead.png.slim.png"
+                                    alt="Card Security Icon">
+                                ShopEasy protects your card information
+                            </h2>
+                            <div class="features">
+                                <div class="feature">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="16"
+                                        height="16">
+                                        <path
+                                            d="M930.4 227.8l-108.2-84.8-409.5 522.4-243.1-188.7-84.3 108.6 351.2 272.7z">
+                                        </path>
+                                    </svg>
+                                    Temu follows PCI DSS standards
+                                </div>
+                                <div class="feature">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="16"
+                                        height="16">
+                                        <path
+                                            d="M930.4 227.8l-108.2-84.8-409.5 522.4-243.1-188.7-84.3 108.6 351.2 272.7z">
+                                        </path>
+                                    </svg>
+                                    Protects against unauthorized access
+                                </div>
+                                <div class="feature">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="16"
+                                        height="16">
+                                        <path
+                                            d="M930.4 227.8l-108.2-84.8-409.5 522.4-243.1-188.7-84.3 108.6 351.2 272.7z">
+                                        </path>
+                                    </svg>
+                                    Encrypted payment processing
+                                </div>
+
+                                <div class="feature">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="16"
+                                        height="16">
+                                        <path
+                                            d="M930.4 227.8l-108.2-84.8-409.5 522.4-243.1-188.7-84.3 108.6 351.2 272.7z">
+                                        </path>
+                                    </svg>
+                                    ShopEasy never sells your card information
+                                </div>
+                            </div>
+
+                            <!-- Images Section -->
+                            <div class="_193mUQDw flex flex-wrap justify-evenly mt-8">
+                                <img data-state="succ" aria-hidden="true" alt="" style="height: 60px;"
+                                    class="lazy-image _2shBVu_1 loaded" data-retry-count="0"
+                                    src="https://aimg.kwcdn.com/upload_aimg/temu/80d57653-6e89-4bd5-82c4-ac1e8e2489fd.png.slim.png?imageView2/2/w/120/q/70/format/webp"
+                                    data-was-processed="true">
+                                <img data-state="succ" aria-hidden="true" alt="" style="height: 60px;"
+                                    class="lazy-image _2shBVu_1 loaded" data-retry-count="0"
+                                    src="https://aimg.kwcdn.com/upload_aimg/temu/bcb8bf23-78c9-45ab-b480-f7020d1a5f66.png.slim.png?imageView2/2/w/120/q/70/format/webp"
+                                    data-was-processed="true">
+                                <img data-state="succ" aria-hidden="true" alt="" style="height: 60px;"
+                                    class="lazy-image _2shBVu_1 loaded" data-retry-count="0"
+                                    src="https://aimg.kwcdn.com/upload_aimg/temu/28a227c9-37e6-4a82-b23b-0ad7814feed1.png.slim.png?imageView2/2/w/120/q/70/format/webp"
+                                    data-was-processed="true">
+                                <img data-state="succ" aria-hidden="true" alt="" style="height: 60px;"
+                                    class="lazy-image _2shBVu_1 loaded" data-retry-count="0"
+                                    src="https://aimg.kwcdn.com/upload_aimg/temu/f1c00d04-7dde-4d4a-ae3d-b8aad2de8f96.png.slim.png?imageView2/2/w/120/q/70/format/webp"
+                                    data-was-processed="true">
+                                <img data-state="succ" aria-hidden="true" alt="" style="height: 60px;"
+                                    class="lazy-image _2shBVu_1 loaded" data-retry-count="0"
+                                    src="https://aimg.kwcdn.com/upload_aimg/temu/65e96f45-9ff5-435a-afbf-0785934809ef.png.slim.png?imageView2/2/w/120/q/70/format/webp"
+                                    data-was-processed="true">
+                                <img data-state="succ" aria-hidden="true" alt="" style="height: 60px;"
+                                    class="lazy-image _2shBVu_1 loaded pt-3" data-retry-count="0"
+                                    src="https://aimg.kwcdn.com/upload_aimg/temu/416ef973-5626-4aa3-9174-9690a970ba06.png.slim.png?imageView2/2/w/120/q/70/format/webp"
+                                    data-was-processed="true">
+                                <img data-state="succ" aria-hidden="true" alt="" style="height: 60px;"
+                                    class="lazy-image _2shBVu_1 loaded pt-3" data-retry-count="0"
+                                    src="https://aimg.kwcdn.com/upload_aimg/temu/1f29a857-fe21-444e-8617-f57f5aa064f4.png.slim.png?imageView2/2/w/120/q/70/format/webp"
+                                    data-was-processed="true">
+                                <img data-state="succ" aria-hidden="true" alt="" style="height: 60px;"
+                                    class="lazy-image _2shBVu_1 loaded pt-3" data-retry-count="0"
+                                    src="https://aimg.kwcdn.com/upload_aimg/temu/52656b9f-5cb7-416f-8e12-f8cb39d3b734.png.slim.png?imageView2/2/w/120/q/70/format/webp"
+                                    data-was-processed="true">
+                            </div>
+
+
+                        </div>
+
+                        <!-- New Sections -->
+                        <div class="section mt-8">
+                            <h2 class="kQhZBRNC flex-box align-items-center"><img data-state="succ" aria-hidden="true"
+                                    alt="" class="lazy-image _fT5vo18 loaded" data-retry-count="0"
+                                    src="https://aimg.kwcdn.com/upload_aimg/temu/5ca28ce8-6913-4647-ab74-17b4e8a2977f.png.slim.png?imageView2/2/w/800/q/70/format/webp"
+                                    data-was-processed="true"><span>Secure privacy</span></h2>
+
+                            <div class="card">
+                                <p class="text-[16px] pt-[10px] text-[#888]">Protecting your privacy is important to us!
+                                    Please be assured that
+                                    your information will be kept secured and uncompromised. We do not sell your
+                                    personal information for money and will only use your information in accordance with
+                                    our privacy and cookie policy to provide and improve our services to you.</p>
+                                <div class="_3iyQbGVU" tabindex="0" role="link">Learn more<svg
+                                        xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"
+                                        width="1em" height="1em" fill="currentColor" class="_3hWxXZTJ">
+                                        <path
+                                            d="M320 215.8c-18.2-18.9-17.6-49 1.3-67.2 17-16.4 43.1-17.5 61.5-3.8l5.8 5.1 315.4 328.7c15.7 16.3 17.4 41.1 5.3 59.3l-5.2 6.5-315.5 329.6c-18.2 19-48.3 19.6-67.2 1.5-17.1-16.3-19.3-42.4-6.4-61.2l4.9-6 284-296.6-283.9-295.9z">
+                                        </path>
+                                    </svg></div>
+                            </div>
+                        </div>
+
+                        <div class="section mt-8">
+                            <h2 class="kQhZBRNC flex-box align-items-center"><img data-state="succ" aria-hidden="true"
+                                    alt="" class="lazy-image _fT5vo18 loaded" data-retry-count="0"
+                                    src="https://aimg.kwcdn.com/upload_aimg/temu/9801ecbd-bdef-48e6-9a24-0a41d0340898.png?imageView2/2/w/800/q/70/format/webp"
+                                    data-was-processed="true"><span>Temu purchase protection</span></h2>
+
+                            <div class="card">
+                                <p class="text-[16px] pt-[10px] text-[#888]">Shop confidently on Temu knowing that if
+                                    something goes wrong,
+                                    we've always got your back.</p>
+                                <div class="_3iyQbGVU" tabindex="0" role="link">Learn more<svg
+                                        xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 1024"
+                                        width="1em" height="1em" fill="currentColor" class="_3hWxXZTJ">
+                                        <path
+                                            d="M320 215.8c-18.2-18.9-17.6-49 1.3-67.2 17-16.4 43.1-17.5 61.5-3.8l5.8 5.1 315.4 328.7c15.7 16.3 17.4 41.1 5.3 59.3l-5.2 6.5-315.5 329.6c-18.2 19-48.3 19.6-67.2 1.5-17.1-16.3-19.3-42.4-6.4-61.2l4.9-6 284-296.6-283.9-295.9z">
+                                        </path>
+                                    </svg></div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div *ngIf="orderStep == 1">
+        <nav class="bg-white shadow-lg">
+            <div class="container mx-auto py-4">
+                <h2 class="text-center first">Your Order</h2>
+            </div>
+        </nav>
+        <div class="id1">
+            <form [formGroup]="checkoutForm"
+                class="max-w-2xl mx-auto bg-white p-12 shadow-lg rounded-xl border border-gray-200">
+                <h2 class="text-3xl font-semibold mb-8 text-gray-900 text-center">Shipping Details</h2>
+
+                <!-- Address 1 -->
+                <div class="mt-8">
+                    <label for="address1" class="block text-gray-800 text-lg font-medium mb-3">Address 1</label>
+                    <input type="text" id="address1" formControlName="address1" placeholder="Enter your primary address"
+                        class="w-full px-6 py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
+                        required />
+                </div>
+
+                <!-- Address 2 -->
+                <div class="mt-8">
+                    <label for="address2" class="block text-gray-800 text-lg font-medium mb-3">Address 2</label>
+                    <input type="text" id="address2" formControlName="address2"
+                        placeholder="Enter your secondary address (optional)"
+                        class="w-full px-6 py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200" />
+                </div>
+
+                <!-- City -->
+                <div class="mt-8">
+                    <label for="city" class="block text-gray-800 text-lg font-medium mb-3">City</label>
+                    <input type="text" id="city" formControlName="city" placeholder="Enter your city"
+                        class="w-full px-6 py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
+                        required />
+                </div>
+
+                <!-- Province -->
+                <div class="mt-8">
+                    <label for="province" class="block text-gray-800 text-lg font-medium mb-3">Province</label>
+                    <input type="text" id="province" formControlName="province" placeholder="Enter your province"
+                        class="w-full px-6 py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
+                        required />
+                </div>
+
+                <!-- Postal Code -->
+                <div class="mt-8">
+                    <label for="pincode" class="block text-gray-800 text-lg font-medium mb-3">Postal Code</label>
+                    <input type="text" id="pincode" formControlName="pincode" placeholder="Enter your postal code"
+                        class="w-full px-6 py-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition duration-200"
+                        required />
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" [disabled]="checkoutForm.invalid" (click)="proceedToCheckout()"
+                    class="w-full mt-8 py-5 bg-blue-600 text-white text-lg font-semibold rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition duration-200">
+                    Confirm Address
+                </button>
+            </form>
+        </div>
+    </div>
+
+
+
+    <div *ngIf="orderStep == 2">
+        <nav class="bg-white shadow-lg border-b">
+            <div class="container mx-auto py-4">
+                <h2 class="text-center first">Payment Options</h2>
+            </div>
+        </nav>
+
+        <div class="payment-container card1">
+            <h1 class="text-center id5">Choose One Method</h1>
+
+            <!-- Mat Radio Group for payment options -->
+            <mat-radio-group aria-label="Select Payment Method" [(ngModel)]="paymentType">
+
+                <!-- Card Payment Option -->
+                <mat-radio-button value="card-payment" class="payment-option mb-8">
+                    <div class="payment-label">
+                        <img src="https://aimg.kwcdn.com/upload_aimg/temu/ebeb26a5-1ac2-4101-862e-efdbc11544f3.png.slim.png?imageView2/2/w/800/q/70/format/webp"
+                            alt="Card Payment" class="payment-icon">
+                        <span class="payment-text">Card</span>
+
+                        <!-- Additional Images -->
+                        <div class="payment-images">
+                            <img src="https://aimg.kwcdn.com/upload_aimg/temu/da7f463a-916f-4d91-bcbb-047317a1c35e.png.slim.png?imageView2/2/w/800/q/70/format/webp"
+                                alt="Image 1" class="payment-image">
+                            <img src="https://aimg.kwcdn.com/upload_aimg/temu/b79a2dc3-b089-4cf8-a907-015a25ca12f2.png.slim.png?imageView2/2/w/800/q/70/format/webp"
+                                alt="Image 2" class="payment-image">
+                            <img src="https://aimg.kwcdn.com/upload_aimg/temu/936bf9dc-9bb2-4935-9c5a-a70b800d4cf1.png.slim.png?imageView2/2/w/800/q/70/format/webp"
+                                alt="Image 3" class="payment-image">
+                            <img src="https://aimg.kwcdn.com/upload_aimg/temu/219cc18d-0462-47ae-bf84-128d38206065.png.slim.png?imageView2/2/w/800/q/70/format/webp"
+                                alt="Image 4" class="payment-image">
+                            <img src="https://aimg.kwcdn.com/upload_aimg/temu/fb599a1d-6d42-49f2-ba7a-64b16d01b226.png.slim.png?imageView2/2/w/800/q/70/format/webp"
+                                alt="Image 5" class="payment-image">
+                            <img src="https://aimg.kwcdn.com/upload_aimg/temu/7be318de-3f5d-4bfd-96c6-8cd397904388.png?imageView2/2/w/800/q/70/format/webp"
+                                alt="Image 6" class="payment-image">
+                            <img src="https://aimg.kwcdn.com/upload_aimg/temu/c3e5eb19-1b60-4c2b-87e1-4528fb390cbf.png.slim.png?imageView2/2/w/800/q/70/format/webp"
+                                alt="Image 7" class="payment-image">
+                            <img src="https://aimg.kwcdn.com/upload_aimg/temu/e033dde1-1acb-40b7-8995-3f6691b9c0cb.png.slim.png?imageView2/2/w/800/q/70/format/webp"
+                                alt="Image 8" class="payment-image">
+                        </div>
+                    </div>
+                </mat-radio-button>
+
+                <!-- PayPal Payment Option -->
+                <mat-radio-button value="paypal-payment" class="payment-option mb-8">
+                    <div class="payment-label">
+                        <img src="https://aimg.kwcdn.com/upload_aimg/temu/ec0c5d69-1717-4571-a193-9950ec73c8af.png.slim.png?imageView2/2/w/800/q/70/format/webp"
+                            alt="PayPal" class="payment-icon">
+                        <span class="payment-text text-[20px]">PayPal</span>
+                    </div>
+                </mat-radio-button>
+
+                <!-- Apple Pay Payment Option -->
+                <mat-radio-button value="apple-pay" class="payment-option mb-8">
+                    <div class="payment-label">
+                        <img src="https://aimg.kwcdn.com/upload_aimg/launch/3a626fff-bbf7-4a26-899a-92c42eef809a.png.slim.png?imageView2/2/w/800/q/70/format/webp"
+                            alt="Apple Pay" class="payment-icon">
+                        <span class="payment-text">Apple Pay</span>
+                    </div>
+                </mat-radio-button>
+
+                <!-- Afterpay Payment Option -->
+                <mat-radio-button value="afterpay" class="payment-option mb-8">
+                    <div class="payment-label">
+                        <img src="https://aimg.kwcdn.com/upload_aimg/temu/7d02a691-5391-418d-a38e-eadde739e22e.png.slim.png?imageView2/2/w/800/q/70/format/webp"
+                            alt="Afterpay" class="payment-icon">
+                        <span class="payment-text">Afterpay</span>
+                    </div>
+                </mat-radio-button>
+
+                <!-- Google Pay Payment Option -->
+                <mat-radio-button value="google-pay" class="payment-option mb-8">
+                    <div class="payment-label">
+                        <img src="https://aimg.kwcdn.com/upload_aimg/temu/ac293ffc-9957-4588-a4df-f3397b4a54e0.png.slim.png?imageView2/2/w/800/q/70/format/webp"
+                            alt="Google Pay" class="payment-icon">
+                        <span class="payment-text">Google Pay</span>
+                    </div>
+                </mat-radio-button>
+
+                <!-- Klarna Payment Option -->
+                <mat-radio-button value="klarna" class="payment-option mb-8">
+                    <div class="payment-label">
+                        <img src="https://aimg.kwcdn.com/upload_aimg/temu/baacbca4-6cbb-41ce-bc81-59eab8ac3638.png.slim.png?imageView2/2/w/800/q/70/format/webp"
+                            alt="Klarna" class="payment-icon">
+                        <span class="payment-text">Klarna</span>
+                    </div>
+                </mat-radio-button>
+
+                <!-- Affirm Payment Option -->
+                <mat-radio-button value="affirm" class="payment-option mb-8">
+                    <div class="payment-label">
+                        <img src="https://aimg.kwcdn.com/upload_aimg/temu/8d57d602-98bf-4da0-b127-ff667db68fdf.png.slim.png?imageView2/2/w/800/q/70/format/webp"
+                            alt="Affirm" class="payment-icon">
+                        <span class="payment-text">Affirm</span>
+                    </div>
+                </mat-radio-button>
+
+                <!-- Cash on Delivery Option -->
+                <mat-radio-button value="cash" class="payment-option mb-4">
+                    <div class="payment-label">
+                        <img src="https://static-00.iconduck.com/assets.00/cash-on-delivery-icon-1024x345-7sgjf338.png"
+                            alt="Cash on Delivery" class="payment-icon">
+                        <span class="payment-text">Cash on Delivery</span>
+                    </div>
+                </mat-radio-button>
+
+            </mat-radio-group>
+
+            <!-- Continue Button -->
+            <div class="flex justify-center mt-5 mr-[48px]">
+                <button (click)="completeOrder()"
+                    class="px-12 py-3 text-white bg-blue-600 hover:bg-blue-700 rounded-lg text-lg shadow-md transition-all duration-300 transform hover:scale-105 focus:outline-none">
+                    Continue
+                </button>
+            </div>
+
+
+
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>
