@@ -67,16 +67,16 @@
     position: relative;
   } */
   
-  button.absolute {
-    position: absolute; /* Position the button absolutely */
-    right: 0; /* Place it to the right of the h1 tag */
-    background: none; /* Remove background */
-    border: none; /* Remove border */
+  /* button.absolute {
+    position: absolute; 
+    right: 0; 
+    background: none; 
+    border: none; 
     cursor: pointer;
     z-index: 10;
     padding-right: 250px; 
   }
-  
+   */
   
   button.absolute:hover {
     transform: scale(1.1); /* Slightly enlarge the icon on hover */
@@ -102,11 +102,15 @@
   
 
   .ninth {
-    position: relative; /* Make the parent container relative */
-    display: flex;
-    /* align-items: center; */
-    gap: 10px; /* Space between the elements */
-  }
+    display: inline-flex;
+    align-items: center;
+    gap: 10px; /* Adjust spacing as needed */
+}
+
+.d1{
+  padding:0px 0px 18px 13px;
+}
+
   
   
   

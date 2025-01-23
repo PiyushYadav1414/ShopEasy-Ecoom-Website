@@ -15,26 +15,26 @@
                     <div class="flex items-center gap-4">
                         <h3 class="third">Order ID: {{ order._id }}</h3>
                         <span [class]="getStatusClass(order.status)"
-                            class="px-3 py-1 rounded-full text-[25px] font-medium forth flex items-center">
+                            class="px-3 py-1 rounded-full text-[20px] font-medium forth flex items-center">
                             <span class="status-dot mr-2"></span>
                             Status: {{ order.status || 'Processing' }}
                         </span>
                     </div>
                     
                     <div class="flex items-center gap-4 ">
-                        <p class="text-[16px] text-gray-600">Date: <span class="font-medium">{{ order.date | date: 'mediumDate' }}</span></p>
-                        <p class="text-[16px] text-gray-600">Total: <span class="font-medium">${{ order.totalAmount }}</span></p>
-                        <p class="text-[16px] text-gray-600">Payment: <span class="font-medium">{{ order.paymentType }}</span></p>
+                        <p class="text-[13px] text-gray-600">Date: <span class="font-medium">{{ order.date | date: 'mediumDate' }}</span></p>
+                        <p class="text-[13px] text-gray-600">Total: <span class="font-medium">${{ order.totalAmount }}</span></p>
+                        <p class="text-[13px] text-gray-600">Payment: <span class="font-medium">{{ order.paymentType }}</span></p>
                     </div>
                 </div>
                 
                 <!-- Address Section -->
                 <div class="address-section absolute top-18 right-[90px] mt-2">
-                    <p class="text-[25px] font-semibold text-gray-600">Shipping Address</p>
+                    <p class="text-[17px] font-semibold text-gray-600">Shipping Address</p>
                     <div class="mt-2 ml-4">
-                        <p class="text-[16px] text-gray-600">{{ order.address.address1 }}</p>
-                        <p class="text-[16px] text-gray-600" *ngIf="order.address.address2">{{ order.address.address2 }}</p>
-                        <p class="text-[16px] text-gray-600">{{ order.address.city }}, {{ order.address.pincode }}</p>
+                        <p class="text-[13px] text-gray-600">{{ order.address.address1 }}</p>
+                        <p class="text-[13px] text-gray-600" *ngIf="order.address.address2">{{ order.address.address2 }}</p>
+                        <p class="text-[13px] text-gray-600">{{ order.address.city }}, {{ order.address.pincode }}</p>
                     </div>
                 </div>
                 

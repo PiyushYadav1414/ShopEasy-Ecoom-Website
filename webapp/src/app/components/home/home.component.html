@@ -31,7 +31,7 @@
       </owl-carousel-o>
 
     </div>
-
+    <!-- Featured Products  -->
     <h1 class="text-[25px] font-bold mb-6 text-center uppercase" style="font-weight: 500;">Featured Products</h1>
     <div class="flex flex-wrap gap-x-6 justify-evenly mt-8">
       <app-product-card *ngFor="let product of featuredProducts" [product]="product"
@@ -39,7 +39,8 @@
     </div>
   </div>
 
-  <div class="mt-8">
+  <!-- New Products -->
+  <div class="mt-8" >
     <h1 class="text-[25px] font-bold mb-6 text-center uppercase" style="font-weight: 500;">New Products</h1>
     <div class="flex flex-wrap gap-x-6 justify-evenly mt-8">
       <app-product-card *ngFor="let product of newProducts" [product]="product"

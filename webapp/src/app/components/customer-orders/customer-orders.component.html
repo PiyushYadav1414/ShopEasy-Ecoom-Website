@@ -14,16 +14,16 @@
                 <div class="flex flex-wrap items-center justify-between gap-4">
                     <div class="flex items-center gap-4">
                         <h3 class="third ">Order ID: {{ order._id }}</h3>
-                        <span [class]="getStatusClass(order.status)" class="px-3 py-1 rounded-full text-[25px] font-medium forth flex items-center">
+                        <span [class]="getStatusClass(order.status)" class="px-3 py-1 rounded-full text-[20px] font-medium forth flex items-center">
                             <span class="status-dot mr-2"></span>
                             Status: {{ order.status || 'Processing' }}
                         </span>
                         
                     </div>
                     <div class="flex items-center gap-4 mt-2">
-                        <p class="text-[16px] text-gray-600">Date: <span class="font-medium">{{ order.date | date: 'mediumDate' }}</span></p>
-                        <p class="text-[16px] text-gray-600">Total: <span class="font-medium">${{ order.totalAmount }}</span></p>
-                        <p class="text-[16px] text-gray-600">Payment: <span class="font-medium">{{ order.paymentType }}</span></p>
+                        <p class="text-[14px] text-gray-600">Date: <span class="font-medium">{{ order.date | date: 'mediumDate' }}</span></p>
+                        <p class="text-[14px] text-gray-600">Total: <span class="font-medium">${{ order.totalAmount }}</span></p>
+                        <p class="text-[14px] text-gray-600">Payment: <span class="font-medium">{{ order.paymentType }}</span></p>
                     </div>
                 </div>
             </div>

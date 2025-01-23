@@ -70,10 +70,10 @@
   
   /* category-menu styles */
   .category-menu {
-    margin-top: 10px;
+    /* margin-top: 10px; */
     font-family: serif;
     font-size: 20px;
-    padding: 20px 0px 0px 30px;
+    padding: 8px 0px 0px 30px;
   }
   
   .category-menu ul {
@@ -84,7 +84,8 @@
   }
   
   .category-menu li {
-    margin-right: -30px;
+    margin-right: -70px;
+   
   }
   
   .category-menu a {
@@ -96,7 +97,7 @@
   .category-menu a:hover {
     /* color: #ffd700;  */
     color: red;
-    font-size: 30px;
+    font-size: 25px;
     font-family:cursive;
     /* padding:5px;
     border:1px solid white; */
@@ -243,4 +244,8 @@ button.absolute:hover {
   position: relative;
   bottom: 0px;
   right: 20px;
+}
+
+.harry{
+  height:159px;
 }

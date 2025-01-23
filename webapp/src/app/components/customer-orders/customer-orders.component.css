@@ -86,14 +86,14 @@
 } */
 
 .third{
-    font-size: 20px !important; /* Same as text-lg */
+    font-size: 17px !important; /* Same as text-lg */
     font-weight: 500 !important;    /* Same as font-semibold */
     color: #4a5568 !important;      /* Same as text-gray-700 */
     margin-top: 16px;
 }
 
 .forth{
-    padding-left: 210px;
+    padding-left: 140px;
 }
 
 .status-dot {

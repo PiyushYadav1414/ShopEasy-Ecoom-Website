@@ -32,12 +32,11 @@
 
         <div class="lg:w-1/2 w-full mt-6 lg:mt-0">
             <!-- Product Details -->
-            <div class="ninth">
+            <div class="ninth inline-flex items-center gap-4">
                 <h1 class="fifth">{{product.name}}</h1>
-
-
-                <!-- Heart Icon -->
-                <button (click)="addToWishList(product)" class="absolute hover:scale-110 transition-transform"
+                
+                <button (click)="addToWishList(product)" 
+                    class="hover:scale-110 transition-transform d1"
                     aria-label="Add to Wishlist">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-10 w-10"
                         [ngClass]="{'filled-heart': isInWishlist(product), 'empty-heart': !isInWishlist(product)}">
@@ -47,8 +46,8 @@
                         </path>
                     </svg>
                 </button>
-
             </div>
+            
 
 
 
@@ -185,13 +184,20 @@
             <div class="mt-8">
                 <h1 class="text-[25px] font-bold mb-6 text-center uppercase" style="font-weight: 500;">Similar Products
                 </h1>
-                <div class="flex flex-wrap gap-x-6 justify-evenly mt-8">
+                <div class="flex flex-wrap gap-x-4 justify-evenly mt-8">
                     <app-product-card *ngFor="let product of similarProducts" [product]="product"
-                        class="w-[23%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"></app-product-card>
+                        class="w-[24%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"></app-product-card>
                 </div>
             </div>
         </div>
 
+        <!-- <div class="mt-8" >
+            <h1 class="text-[25px] font-bold mb-6 text-center uppercase" style="font-weight: 500;">New Products</h1>
+            <div class="flex flex-wrap gap-x-6 justify-evenly mt-8">
+              <app-product-card *ngFor="let product of newProducts" [product]="product"
+                class="w-[23%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"></app-product-card>
+            </div>
+          </div> -->
 
 
 
