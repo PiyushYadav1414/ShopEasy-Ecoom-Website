@@ -9,6 +9,6 @@
 
 export const environment = {
     production: false,
-    baseUrl: 'http://localhost:3000'  // Local API server for development
+    baseUrl: 'https://shopeasy-ecoom-website-backend.onrender.com'  // Local API server for development
   };
   
