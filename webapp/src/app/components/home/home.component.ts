@@ -4,29 +4,33 @@ import { Product } from 'src/app/types/product';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { CartService } from 'src/app/services/cart.service';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  loading: boolean = true;
   
-  constructor(private customerService: CustomerService, private wishlistService: WishlistService,private cartService: CartService){
+  constructor(
+    private customerService: CustomerService, 
+    private wishlistService: WishlistService,
+    private cartService: CartService
+  ) {}
 
-  }
   newProducts: Product[] = []; 
   featuredProducts: Product[] = [];
   bannerImages: any = [
-    { _id: '677040f8d6a381e4a8ec7087', name: 'LOOSE-FIT BLAZER', images: 'https://image.hm.com/assets/hm/dc/55/dc55fa6865b1c5fb3c39a692e4b25cd274157710.jpg?imwidth=1536' },
-    { _id: '6770453fd6a381e4a8ec7105', name: 'SLIM FIT SINGLE-BREASTED JACKET', images: 'https://image.hm.com/assets/hm/ab/90/ab9056113ea5bf3361a0cd0d2eca4134f02cd2dc.jpg?imwidth=400' },
+    { _id: '6797df5777c1c9904b574136', name: 'LOOSE-FIT BLAZER', images: 'https://image.hm.com/assets/hm/dc/55/dc55fa6865b1c5fb3c39a692e4b25cd274157710.jpg?imwidth=1536' },
+    { _id: '6797de8677c1c9904b574103', name: 'SLIM FIT SINGLE-BREASTED JACKET', images: 'https://image.hm.com/assets/hm/ab/90/ab9056113ea5bf3361a0cd0d2eca4134f02cd2dc.jpg?imwidth=400' },
     { _id: '67704418d6a381e4a8ec70e6', name: 'TAPERED DRESS PANTS', images: 'https://image.hm.com/assets/hm/a8/a1/a8a115dbc8ca63c09fb3394a5de18e15a562f545.jpg?imwidth=657' },
     { _id: '6770435ad6a381e4a8ec70dc', name: 'WIDE-LEG PANTS', images: 'https://image.hm.com/assets/hm/af/9e/af9ee3341a3f104cb59ba6328b8c35132311483a.jpg?imwidth=657' },
     { _id: '6770407dd6a381e4a8ec7082', name: 'LOOSE FIT PRINTED HOODIE', images: 'https://image.hm.com/assets/hm/6b/44/6b44f200a9d73830e3a7637aa68236c0c9aa36a3.jpg?imwidth=1536' },
     { _id: '677043a0d6a381e4a8ec70e1', name: 'BELTED SHIRT DRESS', images: 'https://image.hm.com/assets/hm/a6/80/a6808f1eb994f854cf5a4b2f567a075b3d59c076.jpg?imwidth=657' }
-];
+  ];
 
-
-  bannerImage2:Product[] = [];
+  bannerImage2: Product[] = [];
   currentSlideIndex: number = 0;
 
   bannerImage3: string[] = [
@@ -43,33 +47,38 @@ export class HomeComponent implements OnInit {
     this.currentSlideIndex =
       (this.currentSlideIndex + direction + totalSlides) % totalSlides;
   }
-  
 
   // Owl Carousel custom options
   customOptions: OwlOptions = {
-    loop: true,  // Loop the carousel
-    margin: 10,  // Set margin between items
-    nav: true,  // Disable navigation
-    dots: true,  // Show dots navigation
-    items: 3,  // Display 3 items per slide
-    autoplay: true,  // Enable autoplay
-    autoplayTimeout: 3000,  // Time between image transitions (2 seconds)
-    autoplayHoverPause: true,  // Pause autoplay when the mouse hovers over the carousel
-    navSpeed: 700,  // Speed of navigation
+    loop: true,
+    margin: 10,
+    nav: true,
+    dots: true,
+    items: 3,
+    autoplay: true,
+    autoplayTimeout: 3000,
+    autoplayHoverPause: true,
+    navSpeed: 700,
     responsive: {
       0: {
-        items: 1,  // Show 1 item on small screens
+        items: 1,
       },
       600: {
-        items: 2,  // Show 2 items on medium screens
+        items: 2,
       },
       1000: {
-        items: 3,  // Show 3 items on large screens
+        items: 3,
       }
     }
   };
 
   ngOnInit(): void {
+    this.loadProducts();
+    this.loading = false;
+  }
+
+  loadProducts(): void {
+    this.loading = true;
 
     // Fetching featured products
     this.customerService.getFeaturedProducts().subscribe((result) => {
@@ -78,14 +87,15 @@ export class HomeComponent implements OnInit {
       this.bannerImage2.push(...result);
       
     });
-     // Fetching new products
-     this.customerService.getNewProducts().subscribe((result) => {
+
+    // Fetching new products
+    this.customerService.getNewProducts().subscribe((result) => {
       this.newProducts = result;
       console.log(this.newProducts);
       this.bannerImage2.push(...result);
-    
     });
-// Jese hi hmara project load hoga server se cart items and favourite items user ki load ho jayeingi hmari memory mein
+
+    // Initialize wishlist and cart
     this.wishlistService.init();
     this.cartService.init();
   }
@@ -113,9 +123,4 @@ export class HomeComponent implements OnInit {
       return false; // Explicit return for false
     }
   }
-  
-
-
-
-
 }

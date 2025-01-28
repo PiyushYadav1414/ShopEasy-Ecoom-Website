@@ -1,123 +1,136 @@
 .order-status {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    position: relative;
-    padding-top: 10px;
-  }
-  
-  .status-step {
-    text-align: center;
-    flex: 1;
-    position: relative;
-    z-index: 2;
-  }
-  
-  .status-step .dot {
-    width: 16px;  /* Increased from 12px to 16px */
-    height: 16px; /* Increased from 12px to 16px */
-    border-radius: 50%;
-    background-color: #d3d3d3;
-    margin: 0 auto;
-    transition: background-color 0.3s ease;
-    
-  }
-  
-  .status-step span {
-    display: block;
-    margin-top: 15px;
-    font-size: 16px;
-  }
-  
- 
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  width: 100%;
+  position: relative;
+  padding-top: 10px;
+}
+
+.status-step {
+  text-align: center;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.status-step .dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #d3d3d3;
+  margin: 0 auto;
+  transition: background-color 0.3s ease;
+}
+
+.status-step span {
+  display: block;
+  margin-top: 15px;
+  font-size: 14px;
+}
+
 .status-step.active .dot {
-    background-color: #4caf50;
-    border-color: #4caf50;  /* Optional: Match border color when active */
-  }
-  
-  .status-bar {
-    position: absolute;
-    top: 16px;  /* Adjusted to center with larger dots */
-    left: 185px;
-    width: 1052px;
-    height: 4px;  /* Slightly thinner to complement larger dots */
-    background-color: #e0e0e0;
-    z-index: 1;
-  }
-  
-  .status-bar span {
-    display: block;
-    height: 100%;
-    background-color: #4caf50;
-    transition: width 0.5s ease;
-  }
-  
-  .width-0 { width: 0%; }
-  .width-33 { width: 33%; }
-  .width-66 { width: 66%; }
-  .width-100 { width: 100%; }
-  
-  .first {
-    font-weight: bold;
-    font-family: serif;
-    font-size: 40px;
-    padding-left: 10px;
-    padding-top: 8px;
+  background-color: #4caf50;
+  border-color: #4caf50;
+}
+
+.status-bar {
+  position: absolute;
+  top: 16px;
+  left: 8%;
+  width: 84%;
+  height: 4px;
+  background-color: #e0e0e0;
+  z-index: 1;
+}
+
+.status-bar span {
+  display: block;
+  height: 100%;
+  background-color: #4caf50;
+  transition: width 0.5s ease;
+}
+
+.width-0 { width: 0%; }
+.width-33 { width: 33%; }
+.width-66 { width: 66%; }
+.width-100 { width: 100%; }
+
+.first {
+  font-weight: bold;
+  font-family: serif;
+  font-size: 38px;
+  padding-left: 10px;
+  padding-top: 8px;
 }
 
 .first:hover {
-    font-size: 50px;
+  font-size: 45px;
 }
 
-.seventh{
-    padding-bottom: 1px;
-    font-size: 15px;
-
+.seventh {
+  padding-bottom: 1px;
+  font-size: 15px;
 }
 
-.id1{
-    font-size: 23px;
+.id1 {
+  font-size: 23px;
 }
 
-/* .id2{
-    position: relative;
-    right:40px;
-} */
-
-.third{
-    font-size: 17px !important; /* Same as text-lg */
-    font-weight: 500 !important;    /* Same as font-semibold */
-    color: #4a5568 !important;      /* Same as text-gray-700 */
-    margin-top: 16px;
-}
-
-.forth{
-    padding-left: 140px;
+.third {
+  font-weight: 500 !important;
+  color: #4a5568 !important;
 }
 
 .status-dot {
-    display: inline-block;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
 }
 
 .text-gray-500 .status-dot {
-    background-color: #718096; /* Gray for Order Confirmed */
+  background-color: #718096;
 }
 
 .text-yellow-500 .status-dot {
-    background-color: #ecc94b; /* Yellow for Shipped */
+  background-color: #ecc94b;
 }
 
 .text-blue-500 .status-dot {
-    background-color: #4299e1; /* Blue for Out For Delivery */
+  background-color: #4299e1;
 }
 
 .text-green-500 .status-dot {
-    background-color: #48bb78; /* Green for Delivered */
+  background-color: #48bb78;
 }
 
+/* Loader styles */
+.loader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
 
+.loader {
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #3498db;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
 
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Your existing styles... */

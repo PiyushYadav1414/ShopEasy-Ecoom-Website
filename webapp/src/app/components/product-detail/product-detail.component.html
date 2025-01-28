@@ -1,44 +1,39 @@
-<div class="py-16 px-8">
+<div class="py-8 px-4 sm:px-6 lg:px-8">
+    <!-- Add this loader div just inside the opening <div class="min-h-screen bg-gray-100"> -->
+    <div *ngIf="loading" class="loader-overlay">
+        <div class="loader"></div>
+    </div>
+
     <!-- Product Title & Price Section -->
-    <div class="flex flex-wrap lg:flex-nowrap mx-12">
-        <div class="lg:w-1/2 w-full pr-6 flex">
-            <!-- Thumbnails (Vertical) -->
-            <div class="flex flex-col space-y-6 justify-start mr-6">
+    <div class="flex flex-col lg:flex-row mx-4 sm:mx-8 lg:mx-12">
+        <div class="w-full lg:w-1/2 lg:pr-6 flex flex-col sm:flex-row">
+            <!-- Thumbnails (Vertical on larger screens, Horizontal on smaller screens) -->
+            <div
+                class="flex flex-row sm:flex-col space-x-4 sm:space-x-0 sm:space-y-6 justify-start mb-4 sm:mb-0 sm:mr-6 overflow-x-auto sm:overflow-x-visible">
                 <div *ngFor="let image of product.images; let i = index">
                     <img [src]="image" [alt]="'Thumbnail ' + (i+1)"
-                        class="w-32 h-32 object-cover rounded-lg shadow-lg cursor-pointer hover:opacity-90 transition-all duration-300"
+                        class="w-20 h-20 sm:w-32 sm:h-32 object-cover rounded-lg shadow-lg cursor-pointer hover:opacity-90 transition-all duration-300"
                         (click)="changeImage(image)" />
                 </div>
             </div>
 
             <!-- Product Gallery (Main Image) -->
-            <!-- <div class="flex justify-center mb-8 flex-grow">
-                <div class="relative w-full max-w-md">
-                    <img [src]="product.images[0]" alt="Product Image" class="w-full h-auto rounded-lg shadow-lg object-contain" />
-                    <div class="absolute top-0 left-0 right-0 bottom-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>
-                </div>
-            </div> -->
-
-            <!-- Product Gallery (Main Image) -->
             <div class="flex justify-center mb-8 flex-grow">
                 <div class="relative w-full max-w-md">
-                    <!-- Main Product Image -->
                     <img [src]="this.mainImage" alt="Product Image"
                         class="w-full h-auto rounded-lg shadow-lg object-contain" />
                 </div>
             </div>
-
         </div>
 
-        <div class="lg:w-1/2 w-full mt-6 lg:mt-0">
+        <div class="w-full lg:w-1/2 mt-6 lg:mt-0">
             <!-- Product Details -->
-            <div class="ninth inline-flex items-center gap-4">
-                <h1 class="fifth">{{product.name}}</h1>
-                
-                <button (click)="addToWishList(product)" 
-                    class="hover:scale-110 transition-transform d1"
+            <div class="flex items-center gap-4 mb-4">
+                <h1 class="fifth text-[35px] sm:text-3xl lg:text-4xl">{{product.name}}</h1>
+
+                <button (click)="addToWishList(product)" class="hover:scale-110 transition-transform d1"
                     aria-label="Add to Wishlist">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-10 w-10"
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="h-8 w-8 sm:h-10 sm:w-10"
                         [ngClass]="{'filled-heart': isInWishlist(product), 'empty-heart': !isInWishlist(product)}">
                         <title>Like</title>
                         <path
@@ -47,28 +42,19 @@
                     </svg>
                 </button>
             </div>
-            
 
-
-
-
-            <div class="flex gap-3 mt-6 mb-4">
-                <!-- Final Selling Price (Discounted Price) -->
-                <span class="text-black font-extrabold text-3xl">${{ sellingPrice }}</span>
-                <!-- Original Price with Strike Through -->
-                <span class="text-gray-400 line-through text-lg seventh">${{ product.price }}</span>
-                <!-- Discount Percentage -->
-                <span class="text-red-600 text-lg seventh">-{{ product.discount }}% OFF</span>
-
+            <div class="flex flex-wrap gap-3 mt-4 mb-4">
+                <span class="text-black font-extrabold text-2xl sm:text-3xl">${{ sellingPrice }}</span>
+                <span class="text-gray-400 line-through text-base sm:text-lg seventh">${{ product.price }}</span>
+                <span class="text-red-600 text-base sm:text-lg seventh">-{{ product.discount }}% OFF</span>
             </div>
-
 
             <p class="sixth text-gray-700 mb-6">{{product.shortDescription}}</p>
 
-            <div class="flex items-center space-x-4 mb-6">
+            <div class="flex flex-col sm:flex-row sm:items-center space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
                 <!-- Size Selector -->
                 <div class="flex items-center">
-                    <span class="text-lg font-semibold text-gray-800">Size:</span>
+                    <span class="text-base sm:text-lg font-semibold text-gray-800">Size:</span>
                     <select [(ngModel)]="selectedSize"
                         class="ml-2 p-2 border border-gray-300 rounded-md text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-600">
                         <option value="-1" selected>Select</option>
@@ -76,10 +62,9 @@
                     </select>
                 </div>
 
-
                 <!-- Color Selector -->
                 <div class="flex items-center">
-                    <span class="text-lg font-semibold text-gray-800">Color:</span>
+                    <span class="text-base sm:text-lg font-semibold text-gray-800">Color:</span>
                     <div class="ml-2 flex space-x-2">
                         <div class="w-6 h-6 rounded-full bg-black cursor-pointer"></div>
                         <div class="w-6 h-6 rounded-full bg-gray-600 cursor-pointer"></div>
@@ -89,28 +74,29 @@
             </div>
 
             <!-- Add to Cart & Buy Now -->
-            <div class="flex space-x-4 mb-6">
+            <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-6">
                 <button *ngIf="!isProductInCart(product._id!)"
-                class="px-6 py-2 rounded-lg transition-all bg-blue-500 text-white hover:bg-blue-700"
-                (click)="addToCart(product); $event.stopPropagation()">
-                Add to Cart
-              </button>
-        
-        
-              <button *ngIf="isProductInCart(product._id!)"
-                class="px-4 py-2  rounded-lg transition-all bg-red-500 text-white hover:bg-red-700 whitespace-nowrap"
-                (click)="addToCart(product); $event.stopPropagation()">
-                Remove from Cart
-              </button>
-                
-                    <button class="px-6 py-3 bg-green-600 text-white rounded-lg shadow-lg hover:bg-green-700 transition ease-in-out duration-300 transform hover:scale-105">Buy
-                    Now</button>
+                    class="w-full sm:w-auto px-6 py-2 rounded-lg transition-all bg-blue-500 text-white hover:bg-blue-700"
+                    (click)="addToCart(product); $event.stopPropagation()">
+                    Add to Cart
+                </button>
+
+                <button *ngIf="isProductInCart(product._id!)"
+                    class="w-full sm:w-auto px-4 py-2 rounded-lg transition-all bg-red-500 text-white hover:bg-red-700 whitespace-nowrap"
+                    (click)="addToCart(product); $event.stopPropagation()">
+                    Remove from Cart
+                </button>
+
+                <button
+                    class="w-full sm:w-auto px-6 py-3 bg-green-600 text-white rounded-lg shadow-lg hover:bg-green-700 transition ease-in-out duration-300 transform hover:scale-105">
+                    Buy Now
+                </button>
             </div>
 
             <!-- Product Description Below Buttons -->
-            <div class="mt-6 mx-10">
-                <h2 class="text-2xl font-bold text-gray-900 mb-4">Product Description</h2>
-                <pre class="text-base text-gray-900 font-normal mb-4"
+            <div class="mt-6 mx-4 sm:mx-10">
+                <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Product Description</h2>
+                <pre class="text-sm sm:text-base text-gray-900 font-normal mb-4"
                     style="font-family: 'Roboto', sans-serif; white-space: pre-wrap; word-wrap: break-word;">
                     {{ product.description }}
                 </pre>
@@ -118,22 +104,19 @@
 
             <!-- Promotional Offers Section -->
             <div class="mt-6">
-                <h2 class="forth">Special Offers</h2>
-                <div class="flex flex-nowrap space-x-8">
+                <h2 class="forth text-xl sm:text-2xl">Special Offers</h2>
+                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-8">
                     <!-- Bank Offer -->
                     <div class="flex items-start space-x-2">
                         <img src="https://rukminim2.flixcart.com/www/36/36/promos/06/09/2016/c22c9fc4-0555-4460-8401-bf5c28d7ba29.png?q=90"
                             width="18" height="18" class="yNKwUY">
                         <div>
-                            <span class="font-semibold text-lg text-gray-900">Bank Offer</span>
-
-                            <p class="text-sm text-gray-700">
+                            <span class="font-semibold text-base sm:text-lg text-gray-900">Bank Offer</span>
+                            <p class="text-xs sm:text-sm text-gray-700">
                                 5% Unlimited Cashback on Flipkart Axis
                                 <span style="display: block;">Bank Credit Card</span>
                             </p>
-
-
-                            <a href="#" class="text-blue-500 text-sm">T&C</a>
+                            <a href="#" class="text-blue-500 text-xs sm:text-sm">T&C</a>
                         </div>
                     </div>
 
@@ -142,11 +125,11 @@
                         <img src="https://rukminim2.flixcart.com/www/36/36/promos/06/09/2016/c22c9fc4-0555-4460-8401-bf5c28d7ba29.png?q=90"
                             width="18" height="18" class="yNKwUY">
                         <div>
-                            <span class="font-semibold text-lg text-gray-900">Combo Offer</span>
-                            <p class="text-sm text-gray-700">Buy 2 or more items save ₹30</p>
+                            <span class="font-semibold text-base sm:text-lg text-gray-900">Combo Offer</span>
+                            <p class="text-xs sm:text-sm text-gray-700">Buy 2 or more items save ₹30</p>
                             <a href="https://www.flipkart.com/all/pr?sid=all&offer=nb:mp:10b55ec527&offerCategory=BuyMoreSaveMore"
-                                class="text-blue-500 text-sm" target="_blank">See all products</a>
-                            <a href="#" class="text-blue-500 text-sm">T&C</a>
+                                class="text-blue-500 text-xs sm:text-sm" target="_blank">See all products</a>
+                            <a href="#" class="text-blue-500 text-xs sm:text-sm">T&C</a>
                         </div>
                     </div>
 
@@ -155,21 +138,20 @@
                         <img src="https://rukminim2.flixcart.com/www/36/36/promos/06/09/2016/c22c9fc4-0555-4460-8401-bf5c28d7ba29.png?q=90"
                             width="18" height="18" class="yNKwUY">
                         <div>
-                            <span class="font-semibold text-lg text-gray-900">Special Price</span>
-                            <p class="text-sm text-gray-700">Get at flat ₹369</p>
-                            <a href="#" class="text-blue-500 text-sm">T&C</a>
+                            <span class="font-semibold text-base sm:text-lg text-gray-900">Special Price</span>
+                            <p class="text-xs sm:text-sm text-gray-700">Get at flat ₹369</p>
+                            <a href="#" class="text-blue-500 text-xs sm:text-sm">T&C</a>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
     <!-- Product Details Section -->
     <div class="mt-16">
-        <h2 class="text-2xl font-bold text-gray-900 mb-4">Product Details</h2>
-        <ul class="list-disc pl-6 space-y-2 text-lg text-gray-700">
+        <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-4">Product Details</h2>
+        <ul class="list-disc pl-6 space-y-2 text-base sm:text-lg text-gray-700">
             <li>Made from high-quality materials</li>
             <li>Available in 3 sizes and multiple colors</li>
             <li>Perfect for everyday use and special occasions</li>
@@ -182,60 +164,144 @@
     <div *ngIf="similarProducts.length">
         <div class="px-2">
             <div class="mt-8">
-                <h1 class="text-[25px] font-bold mb-6 text-center uppercase" style="font-weight: 500;">Similar Products
-                </h1>
-                <div class="flex flex-wrap gap-x-4 justify-evenly mt-8">
+                <h1 class="text-xl sm:text-2xl font-bold mb-6 text-center uppercase" style="font-weight: 500;">Similar
+                    Products</h1>
+                <div class="flex flex-wrap gap-4 justify-evenly mt-8">
                     <app-product-card *ngFor="let product of similarProducts" [product]="product"
-                        class="w-[24%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"></app-product-card>
+                        class="w-full sm:w-[48%] md:w-[31%] lg:w-[23%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"></app-product-card>
                 </div>
             </div>
         </div>
-
-        <!-- <div class="mt-8" >
-            <h1 class="text-[25px] font-bold mb-6 text-center uppercase" style="font-weight: 500;">New Products</h1>
-            <div class="flex flex-wrap gap-x-6 justify-evenly mt-8">
-              <app-product-card *ngFor="let product of newProducts" [product]="product"
-                class="w-[23%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"></app-product-card>
-            </div>
-          </div> -->
-
-
-
-
+       
+          
+          
+        <!-- Product Reviews Section -->
         <!-- Product Reviews Section -->
         <div class="mt-16">
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">Customer Reviews</h2>
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mb-6">Customer Reviews</h2>
 
             <!-- Review 1 -->
-            <div class="flex space-x-4 mb-6">
-                <img src="customer-avatar-1.jpg" alt="Customer Avatar" class="w-12 h-12 rounded-full object-cover" />
+            <div
+                class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-6 bg-white shadow-md rounded-lg p-4">
+                <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="Customer Avatar"
+                    class="w-16 h-16 rounded-full object-cover" />
                 <div class="flex-1">
-                    <div class="flex items-center justify-between">
-                        <span class="font-semibold text-gray-800">John Doe</span>
-                        <div class="text-yellow-500">
-                            <!-- Star Rating SVGs -->
+                    <div class="flex items-center justify-start md:justify-between">
+                        <span class="font-semibold text-gray-800 text-lg">John Doe</span>
+                        <div class="text-yellow-500 flex space-x-1 pl-[10px] md:pl-[0px] pb-[2px] md:pb-[0px]">
+                            <!-- Star Rating -->
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
                         </div>
                     </div>
-                    <p class="text-gray-700 mt-2">This product is amazing! It's exactly what I needed, and the quality
-                        is
-                        outstanding. Highly recommend!</p>
+                    <p class="text-sm sm:text-base text-gray-700 mt-2 leading-relaxed">
+                        This product is amazing! It's exactly what I needed, and the quality is outstanding. Highly
+                        recommend!
+                    </p>
                 </div>
             </div>
 
             <!-- Review 2 -->
-            <div class="flex space-x-4 mb-6">
-                <img src="customer-avatar-2.jpg" alt="Customer Avatar" class="w-12 h-12 rounded-full object-cover" />
+            <div
+                class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-6 bg-white shadow-md rounded-lg p-4">
+                <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Customer Avatar"
+                    class="w-16 h-16 rounded-full object-cover" />
                 <div class="flex-1">
-                    <div class="flex items-center justify-between">
-                        <span class="font-semibold text-gray-800">Jane Smith</span>
-                        <div class="text-yellow-500">
-                            <!-- Star Rating SVGs -->
+                    <div class="flex items-center justify-start md:justify-between">
+                        <span class="font-semibold text-gray-800 text-lg">Jane Smith</span>
+                        <div class="text-yellow-500 flex space-x-1 pl-[10px] md:pl-[0px] pb-[2px] md:pb-[0px]">
+                            <!-- Star Rating -->
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <i class="far fa-star"></i>
                         </div>
                     </div>
-                    <p class="text-gray-700 mt-2">It was a good product, but I felt that the material could be more
-                        durable.
-                        Nonetheless, I’m happy with my purchase.</p>
+                    <p class="text-sm sm:text-base text-gray-700 mt-2 leading-relaxed">
+                        It was a good product, but I felt that the material could be more durable. Nonetheless, I'm
+                        happy with my purchase.
+                    </p>
                 </div>
             </div>
+
+            <!-- Review 3 -->
+            <div
+                class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-6 bg-white shadow-md rounded-lg p-4">
+                <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Customer Avatar"
+                    class="w-16 h-16 rounded-full object-cover" />
+                <div class="flex-1">
+                    <div class="flex items-center justify-start md:justify-between">
+                        <span class="font-semibold text-gray-800 text-lg">Jane Smith</span>
+                        <div class="text-yellow-500 flex space-x-1 pl-[10px] md:pl-[0px] pb-[2px] md:pb-[0px]">
+                            <!-- Star Rating -->
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-sm sm:text-base text-gray-700 mt-2 leading-relaxed">
+                        It was a good product, but I felt that the material could be more durable. Nonetheless, I'm
+                        happy with my purchase.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Review 4 -->
+            <div
+                class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-6 bg-white shadow-md rounded-lg p-4">
+                <img src="https://randomuser.me/api/portraits/men/2.jpg" alt="Customer Avatar"
+                    class="w-16 h-16 rounded-full object-cover" />
+                <div class="flex-1">
+                    <div class="flex items-center justify-start md:justify-between">
+                        <span class="font-semibold text-gray-800 text-lg">Jane Smith</span>
+                        <div class="text-yellow-500 flex space-x-1 pl-[10px] md:pl-[0px] pb-[2px] md:pb-[0px]">
+                            <!-- Star Rating -->
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-sm sm:text-base text-gray-700 mt-2 leading-relaxed">
+                        It was a good product, but I felt that the material could be more durable. Nonetheless, I'm
+                        happy with my purchase.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Review 5 -->
+            <div
+                class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mb-6 bg-white shadow-md rounded-lg p-4">
+                <img src="https://randomuser.me/api/portraits/men/4.jpg" alt="Customer Avatar"
+                    class="w-16 h-16 rounded-full object-cover" />
+                <div class="flex-1">
+                    <div class="flex items-center justify-start md:justify-between">
+                        <span class="font-semibold text-gray-800 text-lg">Jane Smith</span>
+                        <div class="text-yellow-500 flex space-x-1 pl-[10px] md:pl-[0px] pb-[2px] md:pb-[0px]">
+                            <!-- Star Rating -->
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                            <i class="far fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-sm sm:text-base text-gray-700 mt-2 leading-relaxed">
+                        It was a good product, but I felt that the material could be more durable. Nonetheless, I'm
+                        happy with my purchase.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Add more reviews as needed -->
         </div>
+
     </div>
+</div>

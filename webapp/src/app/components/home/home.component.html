@@ -1,138 +1,62 @@
-<div class="slider-container" style="padding: 0px;">
-  <div class="slider" [style.transform]="'translateX(-' + currentSlideIndex * 100 + '%)'">
-    <div *ngFor="let image of bannerImage3" class="slide">
-      <img [src]="image" alt="slider-image" class="slider-image" />
-    </div>
-  </div>
-  <button class="prev" (click)="moveSlide(-1)">&#10094;</button>
-  <button class="next" (click)="moveSlide(1)">&#10095;</button>
+<!-- Loader -->
+<div *ngIf="loading" class="loader-overlay">
+  <div class="loader"></div>
 </div>
 
-
-
-<div class="px-2">
-  <div class="mt-3">
-    <div >
-      <owl-carousel-o [options]="customOptions">
-
-        <ng-template carouselSlide *ngFor="let item of bannerImages; let i = index">
-          <div class="relative flex flex-col items-center" [routerLink]="['/product', item._id]">
-          <img [src]="item.images" alt="image" />
-          <span>{{ item.name }}</span>
-        </div>
-        </ng-template>
-
-        <ng-template carouselSlide *ngFor="let item of bannerImage2; let i = index">
-          <div class="relative flex flex-col items-center" [routerLink]="['/product', item._id]">
-          <img [src]="item.images" alt="image" />
-          <span>{{ item.name }}</span>
-        </div>
-        </ng-template>
-      </owl-carousel-o>
-
+<!-- Content (only shown when not loading) -->
+<div *ngIf="!loading">
+  <div class="slider-container" style="padding: 0px;">
+    <div class="slider" [style.transform]="'translateX(-' + currentSlideIndex * 100 + '%)'">
+      <div *ngFor="let image of bannerImage3" class="slide">
+        <img [src]="image" alt="slider-image" class="slider-image" />
+      </div>
     </div>
-    <!-- Featured Products  -->
-    <h1 class="text-[25px] font-bold mb-6 text-center uppercase" style="font-weight: 500;">Featured Products</h1>
-    <div class="flex flex-wrap gap-x-6 justify-evenly mt-8">
-      <app-product-card *ngFor="let product of featuredProducts" [product]="product"
-        class="w-[23%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"></app-product-card>
-    </div>
+    <button class="prev" (click)="moveSlide(-1)">&#10094;</button>
+    <button class="next" (click)="moveSlide(1)">&#10095;</button>
   </div>
 
-  <!-- New Products -->
-  <div class="mt-8" >
-    <h1 class="text-[25px] font-bold mb-6 text-center uppercase" style="font-weight: 500;">New Products</h1>
-    <div class="flex flex-wrap gap-x-6 justify-evenly mt-8">
-      <app-product-card *ngFor="let product of newProducts" [product]="product"
-        class="w-[23%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"></app-product-card>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-<!-- CROUSEL CODE WORKING -->
-<!-- <div class="px-2">
-    <div class="mt-8">
+  <div class="px-2">
+    <div class="mt-3">
       <div>
         <owl-carousel-o [options]="customOptions">
           <ng-template carouselSlide *ngFor="let item of bannerImages; let i = index">
-            <img [src]="item.images[0]" alt="image" />
+            <div class="relative flex flex-col items-center" [routerLink]="['/product', item._id]">
+              <img [src]="item.images" alt="image" />
+              <span>{{ item.name }}</span>
+            </div>
+          </ng-template>
+
+          <ng-template carouselSlide *ngFor="let item of bannerImage2; let i = index">
+            <div class="relative flex flex-col items-center" [routerLink]="['/product', item._id]">
+              <img [src]="item.images" alt="image" />
+              <span>{{ item.name }}</span>
+            </div>
           </ng-template>
         </owl-carousel-o>
       </div>
-  
+
+      <!-- Featured Products  -->
       <h1 class="text-[25px] font-bold mb-6 text-center uppercase" style="font-weight: 500;">Featured Products</h1>
-      <div class="flex flex-wrap gap-x-6 justify-evenly mt-8">
+      <div class="flex flex-wrap gap-x-6 justify-evenly mt-8 ">
         <app-product-card *ngFor="let product of featuredProducts" [product]="product"
-          class="w-[23%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"></app-product-card>
+          class="w-[85%] md:w-[34%] lg:w-[30%] xl:w-[23%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"></app-product-card>
       </div>
     </div>
-  
+
+    <!-- New Products -->
     <div class="mt-8">
       <h1 class="text-[25px] font-bold mb-6 text-center uppercase" style="font-weight: 500;">New Products</h1>
       <div class="flex flex-wrap gap-x-6 justify-evenly mt-8">
-        <app-product-card *ngFor="let product of newProducts" [product]="product"
-          class="w-[23%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"></app-product-card>
+        <app-product-card 
+          *ngFor="let product of newProducts" 
+          [product]="product"
+          class="w-[85%] sm-[55%] md:w-[34%] lg:w-[30%] xl:w-[23%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl mb-6"
+        ></app-product-card>
       </div>
     </div>
   </div>
-  
-   -->
+</div>
 
 
 
-<!-- 
-CODE WITHOUT CROUSEL CODE WORKING -->
-<!-- METHOD 2 -->
-<!-- <div class="px-2">
-    <div class="mt-8">
-        <h1 class="text-[25px] font-bold mb-6 text-center uppercase" style="font-weight: 500;">Featured Products</h1>
-        <div class="flex flex-wrap gap-x-6 justify-evenly mt-8">
-            <div *ngFor="let product of featuredProducts; let i = index"
-                class="w-[23%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl">
-                <img src="{{ product.images }}" alt="{{ product.name }}" class="w-full h-56 object-cover">
-                <div class="p-6 bg-white">
-                    <h4 class="text-xl font-semibold text-gray-800 mb-2">{{ product.name }}</h4>
-                    <p class="text-sm text-gray-600 mb-3">{{ product.shortDescription }}</p>
-
-                   
-                    <div class="flex justify-between items-center">
-                        <p class="text-xl font-semibold text-red-600">{{ product.price | currency }}</p>
-                        <button mat-flat-button
-                            style="background-color: rgb(40, 104, 232); color: white; width: auto; padding: 10px 25px;">Add
-                            to Cart</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="mt-8">
-        <h1 class="text-[25px] font-bold mb-6 text-center uppercase" style="font-weight: 500;">New Products</h1>
-        <div class="flex flex-wrap gap-x-6 justify-evenly mt-8">
-            <div *ngFor="let product of newProducts; let i = index"
-                class="w-[23%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl">
-                <img src="{{ product.images }}" alt="{{ product.name }}" class="w-full h-56 object-cover">
-                <div class="p-6 bg-white">
-                    <h4 class="text-xl font-semibold text-gray-800 mb-2">{{ product.name }}</h4>
-                    <p class="text-sm text-gray-600 mb-3">{{ product.shortDescription }}</p>
-
-                    
-                    <div class="flex justify-between items-center">
-                        <p class="text-xl font-semibold text-red-600">{{ product.price | currency }}</p>
-                        <button mat-flat-button
-                            style="background-color: rgb(40, 104, 232); color: white; width: auto; padding: 10px 25px;">Add
-                            to Cart</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
+<!-- Your comments are preserved here -->

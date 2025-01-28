@@ -1,4 +1,9 @@
 <div class="min-h-screen bg-gray-100 p-10 flex justify-center items-center">
+   <!-- Loader -->
+   <div *ngIf="loading" class="loader-overlay">
+    <div class="loader"></div>
+  </div>
+  
     <div class="max-w-2xl w-full bg-white shadow-lg rounded-lg overflow-hidden">
       <!-- Header -->
       <div class="bg-gradient-to-r from-blue-500 to-teal-500 text-white p-6 text-center rounded-t-lg">

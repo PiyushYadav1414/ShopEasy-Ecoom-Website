@@ -12,78 +12,78 @@ import { MatButtonToggleChange } from '@angular/material/button-toggle';
 export class OrdersComponent implements OnInit { // Implement OnInit
 
   orders: Order[] = []; // Initialize orders array
+  loading: boolean = true; // Added loading state
 
   constructor(private orderService: OrderService) {}
 
   // Lifecycle hook to initialize component data
   ngOnInit() {
+    this.loading = true; // Set loading to true before fetching orders
     this.orderService.getAdminOrder().subscribe(
       (result) => {
         this.orders = result; // Assign the fetched orders to the orders array
+        this.loading = false; // Set loading to false after orders are fetched
       },
       (error) => {
         console.error('Error fetching admin orders:', error); // Log errors
+        this.loading = false; // Ensure loading is set to false if there's an error
       }
     );
   }
 
+  getSellingPrice(item: CartItem): number {
+    return parseFloat(
+      (item.product.price - (item.product.price * item.product.discount) / 100).toFixed(2)
+    );
+  }
 
-    getSellingPrice(item: CartItem): number {
-      return parseFloat(
-        (item.product.price - (item.product.price * item.product.discount) / 100).toFixed(2)
-      );
+  getStatusBarWidth(status: any): string {
+    switch (status) {
+      case 'Order Confirmed':
+        return 'width-0';
+      case 'Shipped':
+        return 'width-33';
+      case 'Out For Delivery':
+        return 'width-66';
+      case 'Delivered':
+        return 'width-100';
+      default:
+        return 'width-0';
     }
-  
-    getStatusBarWidth(status: any): string {
-      switch (status) {
-        case 'Order Confirmed':
-          return 'width-0';
-        case 'Shipped':
-          return 'width-33';
-        case 'Out For Delivery':
-          return 'width-66';
-        case 'Delivered':
-          return 'width-100';
-        default:
-          return 'width-0';
-      }
-    }
-    
-    
-  
-    // Function to get the appropriate CSS class for the order status
-    getStatusClass(status: any): string {
-      switch (status) {
-        case 'Order Confirmed':
-          return 'text-red-500';
-        case 'Shipped':
-          return 'text-yellow-500';
-        case 'Out For Delivery':
-          return 'text-blue-500';
-        case 'Delivered':
-          return 'text-green-500';
-        default:
-          return 'text-gray-500';
-      }
-    }
-  
-    isStatusActive(currentStatus: any, stepStatus: string): boolean {
-      const statuses = ['Order Confirmed', 'Shipped', 'Out For Delivery', 'Delivered'];
-      return statuses.indexOf(currentStatus) >= statuses.indexOf(stepStatus);
-    }
+  }
 
-    statusChanged(event: MatButtonToggleChange, order: Order) {
-      console.log(event.value);
-      
-      this.orderService.updateOrderStatus(order._id!, event.value).subscribe(
-        (result) => {
-          alert('Order status updated');
-          order.status = event.value; // Update the local order status
-        },
-        (error) => {
-          console.error('Error updating order status:', error);
-        }
-      );
+  // Function to get the appropriate CSS class for the order status
+  getStatusClass(status: any): string {
+    switch (status) {
+      case 'Order Confirmed':
+        return 'text-red-500';
+      case 'Shipped':
+        return 'text-yellow-500';
+      case 'Out For Delivery':
+        return 'text-blue-500';
+      case 'Delivered':
+        return 'text-green-500';
+      default:
+        return 'text-gray-500';
     }
+  }
+
+  isStatusActive(currentStatus: any, stepStatus: string): boolean {
+    const statuses = ['Order Confirmed', 'Shipped', 'Out For Delivery', 'Delivered'];
+    return statuses.indexOf(currentStatus) >= statuses.indexOf(stepStatus);
+  }
+
+  statusChanged(event: MatButtonToggleChange, order: Order) {
+    console.log(event.value);
     
+    this.orderService.updateOrderStatus(order._id!, event.value).subscribe(
+      (result) => {
+        alert('Order status updated');
+        order.status = event.value; // Update the local order status
+      },
+      (error) => {
+        console.error('Error updating order status:', error);
+      }
+    );
+  }
 }

@@ -1,4 +1,8 @@
 <div class="flex justify-around p-10">
+    <!-- Loader -->
+    <div *ngIf="loading" class="loader-overlay">
+      <div class="loader"></div>
+    </div>
     <button mat-raised-button color="primary" routerLink="/admin/categories">
       Manage Category
     </button>

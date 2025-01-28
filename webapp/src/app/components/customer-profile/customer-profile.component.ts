@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CustomerService } from 'src/app/services/customer.service';
 import { AuthService } from 'src/app/services/auth.service';
+
 @Component({
   selector: 'app-customer-profile',
   templateUrl: './customer-profile.component.html',
@@ -9,17 +10,30 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class CustomerProfileComponent implements OnInit {
   customer: any;
+  loading: boolean = true; // Added loading state
 
-  constructor(private customerService: CustomerService, private route: ActivatedRoute, private router: Router, public authService: AuthService) {}
-
+  constructor(
+    private customerService: CustomerService, 
+    private route: ActivatedRoute, 
+    private router: Router, 
+    public authService: AuthService
+  ) {}
 
   ngOnInit(): void {
-    // const customerId = this.route.snapshot.paramMap.get('id');
-    // if (customerId) {
-    //   this.customerService.getCustomerById(customerId).subscribe((data) => {
-    //     this.customer = data;
-    //   });
-    // }
+    // Set loading to true initially
+    this.loading = true;
+
+    // Simulating customer data fetch (replace with actual implementation)
+    setTimeout(() => {
+      // const customerId = this.route.snapshot.paramMap.get('id');
+      // if (customerId) {
+      //   this.customerService.getCustomerById(customerId).subscribe((data) => {
+      //     this.customer = data;
+      //     this.loading = false;
+      //   });
+      // }
+      this.loading = false; // Set loading to false after data fetch
+    }, 1000);
   }
 
   goBack() {
@@ -38,7 +52,8 @@ export class CustomerProfileComponent implements OnInit {
     //   });
     // }
   }
-  editProfile(){
 
+  editProfile(){
+    // Implementation for editing profile
   }
 }

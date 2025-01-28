@@ -31,28 +31,31 @@
         }
     </style>
 </head>
-<body class="animated-gradient min-h-screen flex items-center justify-center">
+<body class="animated-gradient min-h-screen flex items-center justify-center p-4">
 
 
-    <div class="bg-white p-12 rounded-3xl shadow-xl max-w-md w-full">
-
+    <div class="bg-white p-6 sm:p-12 rounded-3xl shadow-xl w-full max-w-md">
+              <!-- Loader -->
+              <div *ngIf="loading" class="loader-overlay">
+                <div class="loader"></div>
+            </div>
      
-        <div class="text-center mb-2 ml-9">
-            <img src="https://shopeasyy.vercel.app/apple-touch-icon.png" alt="Website Logo" class="h-24 w-24 ml-20 ">
+        <div class="text-center mb-2">
+            <img src="https://shopeasyy.vercel.app/apple-touch-icon.png" alt="Website Logo" class="h-20 w-20 sm:h-24 sm:w-24 mx-auto">
         </div>
 
  
-        <h2 class="text-3xl font-semibold text-center text-gray-800 mb-6">Login to Your Account</h2>
+        <h2 class="text-2xl sm:text-3xl font-semibold text-center text-gray-800 mb-6">Login to Your Account</h2>
 
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             
-            <mat-form-field class="w-full mb-6">
+            <mat-form-field class="w-full mb-4 sm:mb-6">
                 <mat-label for="email">Email Address</mat-label>
                 <input matInput type="email" id="email" formControlName="email" required placeholder="Your email" />
             </mat-form-field>
 
             
-            <mat-form-field class="w-full mb-6">
+            <mat-form-field class="w-full mb-4 sm:mb-6">
                 <mat-label for="password">Password</mat-label>
                 <input matInput type="password" id="password" formControlName="password" required placeholder="Your password" />
             </mat-form-field>

@@ -11,19 +11,23 @@ import { CartItem } from 'src/app/types/cartItem';
 export class CustomerOrdersComponent implements OnInit {
 
   orders: Order[] = [];  // Array to hold customer orders
+  loading: boolean = true; // New loading state
 
   // Injecting the OrderService into the component
   constructor(private orderService: OrderService) { }
 
   ngOnInit(): void {
+    this.loading = true; // Set loading to true when fetching data
     // Fetch customer orders when the component initializes
     this.orderService.getCustomerOrders().subscribe(
       (result) => {
         this.orders = result;  // Populate the orders array with the fetched data
         console.log(this.orders);  // Optionally log the fetched orders for debugging
+        this.loading = false; // Set loading to false after data is 
       },
       (error) => {
         console.error('Error fetching orders:', error);  // Log any errors
+        this.loading = false; // Set loading to false after data is 
       }
     );
   }
@@ -71,4 +75,8 @@ export class CustomerOrdersComponent implements OnInit {
     const statuses = ['Order Confirmed', 'Shipped', 'Out For Delivery', 'Delivered'];
     return statuses.indexOf(currentStatus) >= statuses.indexOf(stepStatus);
   }
+
+
+  
+
 }

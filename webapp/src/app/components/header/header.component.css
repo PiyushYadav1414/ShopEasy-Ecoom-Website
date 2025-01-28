@@ -23,7 +23,7 @@
     color: #ff0000; /* Use your primary color variable here #FF4500 */
     font-weight: bold;
     font-family: serif;
-    font-size: 50px;
+    
   }
   .logo span:hover{
     color:#CCCCCC;
@@ -43,16 +43,7 @@
     border-radius: 8px;
     height: 100px;
   }
-  
-  .search-bar button {
-    position: absolute;
-    /* right: 0px; */
-    left:643px;
-    top: 13px;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
+
   
   /* profile styles */
   .profile a {
@@ -60,8 +51,6 @@
     color: #ffffff;; /* Use your primary color variable here */
     font-weight: bold;
     font-family: serif;
-    font-size: 30px;
-    padding: 18px;
   }
   
   .profile a:hover {
@@ -70,10 +59,9 @@
   
   /* category-menu styles */
   .category-menu {
-    /* margin-top: 10px; */
     font-family: serif;
     font-size: 20px;
-    padding: 8px 0px 0px 30px;
+    /* padding: 8px 0px 0px 30px; */
   }
   
   .category-menu ul {
@@ -81,12 +69,10 @@
     padding: 0;
     margin: 0;
     display: flex;
+
   }
   
-  .category-menu li {
-    margin-right: -70px;
-   
-  }
+ 
   
   .category-menu a {
     text-decoration: none;
@@ -121,7 +107,6 @@
   /* color: #ff4500;  */
   color: #aa2715; 
  font-family: "Moon Dance", cursive;
-  font-size: 45px; /* Adjust as needed */
   font-weight: 700;
   font-style: normal;
 }
@@ -156,9 +141,9 @@ button.absolute {
 }
 
 
-button.absolute:hover {
+/* button.absolute:hover {
   transform: scale(1.1); 
-}
+} */
 
 /* Heart Icon States */
 .empty-heart path {
@@ -180,58 +165,19 @@ button.absolute:hover {
 
 
 .ninth {
-  position: relative; /* Make the parent container relative */
-  display: flex;
-  top:26px
-}
-
-.tenth{
-  padding:0px 0px 0px 0px;
-  position: absolute;
-  right: 216px;
-  bottom: -24px;
-  
-}
-.eleventh{
-  padding:0px 0px 0px 0px;
-  position: absolute;
-  right: 140px;
-  bottom: -24px;
-  
-}
-.twelvth{
-  font-size:17px;
-  padding: 10px;
   position: relative;
-  top: 3px;
-  right: 4px;
+  top: 20px;
 }
-/* .thirteenth{
-  padding:0px 0px 0px 0px;
-  position: absolute;
-  right:2px;
-  bottom:4px;
-} */
 
-.order-status{
-  position: absolute;
-  right: -25px;
-  bottom: -32px;
-}
+
 
 .nl-icon {
   stroke: currentColor;  /* If stroke color is defined in the SVG */
   fill: currentColor;  /* This sets the icon's fill color */
 }
 
-.img2{
-  width:60px;
-  height:60px;
-}
-
 
 .id5{
-  font-size:17px;
   padding: 10px;
   position: relative;
   bottom: 5px;
@@ -239,13 +185,34 @@ button.absolute:hover {
 }
 
 .id6{
-  font-size:17px;
   padding: 10px;
   position: relative;
   bottom: 0px;
   right: 20px;
 }
 
+/* .twelvth{
+  padding: 10px;
+  position: relative;
+  top: 3px;
+  right: 4px;
+} */
+
 .harry{
   height:159px;
 }
+
+
+/* Add this to your existing CSS */
+/* Remove placeholder below 500px */
+@media (max-width: 500px) {
+  .search-bar input::placeholder {
+    content: "";
+  }
+}
+
+
+
+
+
+

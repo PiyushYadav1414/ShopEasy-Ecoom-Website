@@ -14,7 +14,9 @@ export class HeaderComponent implements OnInit, OnDestroy { // Ensure OnInit is 
   categoryList: Category[] = []; // Ensure the property is declared and initialized
   searchTerm!: string; //we will clear the text enetr by user in serach text box when user naviagtes to any page
   isWishlist: boolean = false; // Initial state (empty heart)
+  
   private authSubscription!: Subscription;
+window: any;
 
   constructor(private customerService: CustomerService, private router: Router, public authService: AuthService) {
       console.log("Home constructor")
@@ -58,17 +60,29 @@ export class HeaderComponent implements OnInit, OnDestroy { // Ensure OnInit is 
 
 //   If the user enters "red & blue":
 // Navigates to /products?search=red%20%26%20blue (with encodeURIComponent applied).
-  onSearch(e: any) {
-    if (e.target.value) {
-      this.router.navigateByUrl("/products?search=" + encodeURIComponent(e.target.value));
-    }
+onSearch(e: any) {
+  if (e.target.value) {
+    this.router.navigate(['/products'], {
+      queryParams: {
+        search: encodeURIComponent(e.target.value),
+        page: 1  // Reset page to 1 when performing a new search
+      }
+    });
   }
-  
+}
+
 
   searchCategory(id: string) {
-    this.router.navigateByUrl("/products?categoryId=" + encodeURIComponent(id));
-    this.searchTerm="";
+    // Navigate to products page with categoryId and explicitly set page to 1
+    this.router.navigate(['/products'], {
+      queryParams: {
+        categoryId: id,
+        page: 1  // Explicitly set page to 1
+      }
+    });
+    this.searchTerm = "";
   }
+  
 
   logout(){
     this.authService.logout();
@@ -89,6 +103,7 @@ export class HeaderComponent implements OnInit, OnDestroy { // Ensure OnInit is 
       this.router.navigateByUrl("/"); // Navigate to home page
     }
   }
+  
 
 
 }

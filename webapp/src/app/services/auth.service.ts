@@ -56,8 +56,10 @@ export class AuthService {
   get isLoggedIn() {
     let token = localStorage.getItem('token');
     if (token) {
+      // console.log("isLogin from auth service token mil gya")
       return true;  // If a token is found, the user is logged in
     }
+    // console.log("isLogin from auth service token nhi mila gya")
     return false;  // If no token is found, the user is not logged in
   }
   
@@ -87,6 +89,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.loggedInSubject.next(false);
+    this.router.navigateByUrl('/login');
   }
 
   get isAdmin(){

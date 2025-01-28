@@ -34,6 +34,8 @@ import { MatRadioModule } from '@angular/material/radio';
 import { CustomerOrdersComponent } from './customer-orders/customer-orders.component';
 import { OrdersComponent } from './manage/orders/orders.component'
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @NgModule({
@@ -75,7 +77,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
     MatCheckboxModule,
     CarouselModule,
     MatRadioModule,
-    MatButtonToggleModule 
+    MatButtonToggleModule ,
+    MatSnackBarModule,
+    MatIconModule 
     
   
   ],

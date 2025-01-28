@@ -69,7 +69,7 @@
 
 
 <div class="relative ">
-  <img [src]="product.images" [alt]="product.name" class="w-full h-56 object-cover"
+  <img [src]="product.images[0]" [alt]="product.name" class="w-full h-56 object-cover"
     [routerLink]="['/product', product._id]">
 
   <!-- Heart Icon -->

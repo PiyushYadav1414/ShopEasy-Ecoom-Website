@@ -1,86 +1,101 @@
-<nav class="bg-white shadow-lg">
-    <div class="container mx-auto py-4">
-        <h2 class="text-center first">Order Status</h2>
+<div>
+    <!-- Loader -->
+    <div *ngIf="loading" class="loader-overlay">
+        <div class="loader"></div>
     </div>
-</nav>
 
-<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h2 class="text-3xl font-bold text-gray-800 mb-8 pl-4">Your Orders</h2>
-    <div class="space-y-8">
+    <nav class="bg-white shadow-lg">
+        <div class="container mx-auto py-2">
+            <h2 class="text-center first">Order Status</h2>
+        </div>
+    </nav>
+</div>
+
+<div class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 sm:mb-8 pl-4">Your Orders</h2>
+    <div class="space-y-6 sm:space-y-8">
         <!-- Loop through orders -->
         <div *ngFor="let order of orders" class="border border-gray-200 rounded-lg shadow-sm bg-white overflow-hidden">
             <!-- Order Details Header -->
-            <div class="p-6 border-b border-gray-200 bg-gray-50 relative id15">
-                <div class="flex flex-wrap items-center justify-between gap-4">
-                    <div class="flex items-center gap-4">
-                        <h3 class="third">Order ID: {{ order._id }}</h3>
+            <div class="p-4 sm:p-6 border-b border-gray-200 bg-gray-50">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <div class="flex flex-col sm:flex-row items-start  gap-2 sm:gap-4">
+                        <h3 class="third text-base sm:text-lg">Order ID: {{ order._id }}</h3>
                         <span [class]="getStatusClass(order.status)"
-                            class="px-3 py-1 rounded-full text-[20px] font-medium forth flex items-center">
+                            class="px-3 py-1 rounded-full text-sm sm:text-base font-medium forth flex items-center">
                             <span class="status-dot mr-2"></span>
                             Status: {{ order.status || 'Processing' }}
                         </span>
                     </div>
-                    
-                    <div class="flex items-center gap-4 ">
-                        <p class="text-[13px] text-gray-600">Date: <span class="font-medium">{{ order.date | date: 'mediumDate' }}</span></p>
-                        <p class="text-[13px] text-gray-600">Total: <span class="font-medium">${{ order.totalAmount }}</span></p>
-                        <p class="text-[13px] text-gray-600">Payment: <span class="font-medium">{{ order.paymentType }}</span></p>
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 mt-2 sm:mt-0">
+                        <p class="text-xs sm:text-sm text-gray-600">Date: <span class="font-medium">{{ order.date |
+                                date: 'mediumDate' }}</span></p>
+                        <p class="text-xs sm:text-sm text-gray-600">Total: <span class="font-medium">${{
+                                order.totalAmount }}</span></p>
+                        <p class="text-xs sm:text-sm text-gray-600">Payment: <span class="font-medium">{{
+                                order.paymentType }}</span></p>
                     </div>
-                </div>
+
                 
-                <!-- Address Section -->
-                <div class="address-section absolute top-18 right-[90px] mt-2">
-                    <p class="text-[17px] font-semibold text-gray-600">Shipping Address</p>
-                    <div class="mt-2 ml-4">
-                        <p class="text-[13px] text-gray-600">{{ order.address.address1 }}</p>
-                        <p class="text-[13px] text-gray-600" *ngIf="order.address.address2">{{ order.address.address2 }}</p>
-                        <p class="text-[13px] text-gray-600">{{ order.address.city }}, {{ order.address.pincode }}</p>
-                    </div>
                 </div>
-                
                 <div class="w-6/12 mt-4">
                     <mat-button-toggle-group class="custom-toggle-group" [value]="order.status" name="status"
                         aria-label="Order Status" (change)="statusChanged($event, order)">
-                        <mat-button-toggle value="Order Confirmed">Order Confirmed</mat-button-toggle>
-                        <mat-button-toggle value="Shipped">Shipped</mat-button-toggle>
-                        <mat-button-toggle value="Out For Delivery">Out For Delivery</mat-button-toggle>
-                        <mat-button-toggle value="Delivered">Delivered</mat-button-toggle>
+                        <mat-button-toggle class=" " value="Order Confirmed">Order Confirmed</mat-button-toggle>
+                        <mat-button-toggle class=" " value="Shipped">Shipped</mat-button-toggle>
+                        <mat-button-toggle class="" value="Out For Delivery">Out For Delivery</mat-button-toggle>
+                        <mat-button-toggle class="" value="Delivered">Delivered</mat-button-toggle>
                     </mat-button-toggle-group>
                 </div>
-            </div>
-            
 
+                <!-- <div class="address-section  mt-2">
+                    <p class="text-[17px] font-semibold text-gray-600">Shipping Address</p>
+                    <div class="mt-2 ml-4">
+                        <p class="text-[13px] text-gray-600">{{ order.address.address1 }}</p>
+                        <p class="text-[13px] text-gray-600" *ngIf="order.address.address2">{{ order.address.address2 }}
+                        </p>
+                        <p class="text-[13px] text-gray-600">{{ order.address.city }}, {{ order.address.pincode }}</p>
+                    </div>
+                </div> -->
+
+            </div>
 
             <!-- Cart Items -->
-            <div class="p-6 space-y-4">
+            <div class="p-4 sm:p-6 space-y-4">
                 <div *ngFor="let item of order.items"
-                    class="flex items-center gap-6 border-b border-gray-100 pb-4 last:border-none">
+                    class="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 border-b border-gray-100 pb-4 last:border-none">
                     <!-- Product Image -->
                     <img [src]="item.product.images[0]" alt="{{ item.product.name }}"
-                        class="w-24 h-24 object-cover rounded-lg" />
+                        class="w-full sm:w-24 h-40 sm:h-24 object-cover rounded-lg" />
                     <!-- Product Details -->
                     <div class="flex-1">
                         <h4 class="text-lg font-medium text-gray-800">{{ item.product.name }}</h4>
                         <p class="text-sm text-gray-600">{{ item.product.shortDescription }}</p>
                         <p class="text-sm text-gray-600 mt-1">Quantity: {{ item.quantity }}</p>
                     </div>
-                    <!-- Pricing -->
-                    <div class="flex gap-3 mt-6 mb-4 id2">
-                        <!-- Final Selling Price (Discounted Price) -->
-                        <span class="text-black font-semibold id1">${{ getSellingPrice(item) }}</span>
-                        <!-- Original Price with Strike Through -->
-                        <span class="text-gray-400 line-through  seventh">${{ item.product.price }}</span>
-                        <!-- Discount Percentage -->
-                        <span class="text-red-600  seventh">-{{ item.product.discount }}% OFF</span>
 
+                    <!-- Pricing -->
+                    <div class="product-price mt-4 text-center sm:text-right">
+                        <div class="flex flex-row items-center sm:items-end justify-center sm:justify-end gap-2">
+                            <!-- Final Selling Price (Discounted Price) -->
+                            <span class="text-black font-extrabold text-xl sm:text-2xl">${{ getSellingPrice(item)
+                                }}</span>
+                            <!-- Original Price with Strike Through -->
+                            <div class="flex items-center gap-2">
+                                <!-- Discount Percentage -->
+                                <span class="text-gray-400 line-through text-sm sm:text-base">${{ item.product.price
+                                    }}</span>
+                                <span class="text-red-600 text-sm sm:text-base">-{{ item.product.discount }}% OFF</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Order Status with Progress Bar -->
-            <div class="p-6 bg-gray-50">
-                <div class="order-status mt-4">
-                    <div class="status-bar">
+            <div class="p-4 sm:p-6 bg-gray-50">
+                <div class="order-status mt-4 ">
+                    <div class="status-bar block">
                         <span [ngClass]="getStatusBarWidth(order.status)"></span>
                     </div>
                     <div class="status-step" [ngClass]="{'active': isStatusActive(order.status, 'Order Confirmed')}">
@@ -104,3 +119,9 @@
         </div>
     </div>
 </div>
+ 
+
+
+
+
+

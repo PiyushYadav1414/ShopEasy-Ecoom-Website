@@ -12,7 +12,7 @@ import { Product } from '../../../types/product';
   styleUrls: ['./products.component.css'],
 })
 export class ProductsComponent implements AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'price', 'shortDescription', 'discount', 'action'];
+  displayedColumns: string[] = ['id', 'image', 'name', 'price', 'shortDescription', 'discount', 'action'];
 
   dataSource: MatTableDataSource<Product> = new MatTableDataSource();
   

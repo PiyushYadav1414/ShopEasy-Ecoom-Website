@@ -1,20 +1,30 @@
 <div class="min-h-screen bg-gray-100">
+    <div class="loader-overlay" *ngIf="loading">
+        <div class="loader">
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+            <div class="circle"></div>
+        </div>
+    </div>
+
     <nav class="bg-white shadow-lg">
         <div class="container mx-auto py-2">
             <h2 class="text-center first">{{ categoryName }}</h2>
         </div>
     </nav>
 
-    <div class=" px-4 py-6 flex last">
+    <div class="px-4 py-6 flex flex-col sm:flex-row">
         <!-- Sidebar Section for Filters -->
-        <aside class="w-1/4 bg-white p-4 rounded-lg shadow-lg">
+        <aside class="w-full sm:w-1/4 bg-white p-4 rounded-lg shadow-lg mb-6 sm:mb-0">
             <h2 class="text-lg font-semibold mb-4">Filters</h2>
             <hr>
             <!-- Categories Filter -->
             <div class="mb-2">
                 <h3 class="text-md font-medium mb-4">Categories</h3>
                 <ul class="space-y-2">
-                    <li *ngFor="let category of categories" class="cursor-pointer hover:text-blue-600 transition" (click)="onCategorySelect(category._id)">
+                    <li *ngFor="let category of categories" class="cursor-pointer hover:text-blue-600 transition"
+                        (click)="onCategorySelect(category._id)">
                         <span [class.selected]="category._id === categoryId">{{ category.name }}</span>
                     </li>
                 </ul>
@@ -32,6 +42,7 @@
                 </div>
             </div>
             <hr>
+
             <!-- Sort By Filter -->
             <div class="mt-6">
                 <h3 class="text-md font-medium mb-4">Sort By</h3>
@@ -45,32 +56,41 @@
         </aside>
 
         <!-- Main Section for Products -->
-        <main class="flex-1 ml-6">
+        <main class="flex-1 sm:ml-6">
             <!-- No Products Found Message -->
-            <div *ngIf="products.length === 0" class="flex flex-col items-center justify-center h-screen text-center space-y-4 mt-[-100px]">
-                <img src="https://static-assets-web.flixcart.com/fk-p-linchpin-web/fk-cp-zion/img/error-no-search-results_2353c5.png" alt="No results found" class="w-96 h-96 object-contain mx-auto pl-2" />
-                <div class="text-4xl font-semibold text-gray-800">Sorry, no results found!</div>
-                <div class="text-xl text-gray-600">Please check the spelling or try searching for something else</div>
-            </div>
-
             <!-- Product Grid -->
-            <div *ngIf="products.length > 0" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 shadow-xl ">
-                <app-product-card *ngFor="let product of products" [product]="product" class="shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl bg-white"></app-product-card>
-
+            <div *ngIf="products.length > 0"
+                class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6 shadow-xl">
+                <app-product-card *ngFor="let product of products" [product]="product"
+                    class="md:mx-auto shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl bg-white"></app-product-card>
             </div>
 
-            <!-- <div class="flex flex-wrap gap-x-6 justify-evenly mt-8">
-                <app-product-card *ngFor="let product of products" [product]="product"
-                  class="w-[30%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"></app-product-card>
-              </div> -->
+            <!-- Pagination Buttons -->
+            <!-- Pagination Buttons -->
+           <!-- Pagination Buttons -->
+<!-- Pagination Buttons -->
+<div class="pagination-buttons flex justify-center mt-6 space-x-4">
+    <button
+      class="prev py-2 px-4 bg-gray-300 text-gray-600 rounded-md hover:bg-gray-400 transition disabled:opacity-50"
+      (click)="previousPage()" [disabled]="page === 1">
+      &#10094; Previous
+    </button>
+  
+    <!-- Message for No More Products -->
+    <span *ngIf="products.length < pageSize && page > 1" class="text-gray-500">You have reached the
+      end!</span>
+  
+    <button
+      class="next py-2 px-4 bg-gray-300 text-gray-600 rounded-md hover:bg-gray-400 transition disabled:opacity-50"
+      (click)="nextPage()"
+      [disabled]="products.length < pageSize"> <!-- Disable button if there are fewer products than the page size -->
+      Next &#10095;
+    </button>
+  </div>
+  
+  
+
+
         </main>
     </div>
 </div>
-<!-- <div class="mt-8" >
-    <h1 class="text-[25px] font-bold mb-6 text-center uppercase" style="font-weight: 500;">New Products</h1>
-    <div class="flex flex-wrap gap-x-6 justify-evenly mt-8">
-      <app-product-card *ngFor="let product of newProducts" [product]="product"
-        class="w-[23%] shadow-xl rounded-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-2xl"></app-product-card>
-    </div>
-  </div>
-</div> -->

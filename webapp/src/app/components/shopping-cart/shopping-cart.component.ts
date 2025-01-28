@@ -16,14 +16,20 @@ export class ShoppingCartComponent implements OnInit {
   checkoutForm!: FormGroup;
   paymentType: string = '';
   isCartEmpty: boolean = true; // Flag to track if the cart is empty
+  loading: boolean = true; // New loading state
 
 
   constructor(private cartService: CartService, private fb: FormBuilder, private orderService: OrderService, private router: Router) { }
 
   ngOnInit() {
+    this.loading = true; // Set loading to true when fetching data
     this.cartService.getCartItems().subscribe((res) => {
       this.items = res;
       this.updateCartStatus(); // Check cart status when the component initializes
+      this.loading = false; // Set loading to false after data is fetched
+    }, error => {
+      console.error('Error fetching cart items:', error);
+      this.loading = false; // Ensure loading is set to false even if there's an error
     });
 
     this.checkoutForm = this.fb.group({

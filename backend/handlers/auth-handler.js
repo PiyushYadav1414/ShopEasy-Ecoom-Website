@@ -28,6 +28,7 @@ async function loginUser(model) {
     if (!user) {
         return null; // User not found
     }
+    console.log("Login user ke andar hun")
     console.log(user, model.password, user.password);
 
     // in below we call the compare function of bcrypt which will compare the plain and encrypted passwords and will give True or false
@@ -43,8 +44,10 @@ async function loginUser(model) {
                 isAdmin: user.isAdmin,
             },
             "secret",//The server signs the JWT token with the "secret".Later, when the server gets the token back (e.g., during a request), it verifies the token using the same "secret".
-            { expiresIn: "5h" } // Optional: Token expiration time
+            { expiresIn: "5hr" } // Optional: Token expiration time
         );
+        const decoded = jwt.decode(token);
+        console.log("iat:", decoded.iat, "exp:", decoded.exp); // Log timestamps
        
         return { token, user };
     } else { 
